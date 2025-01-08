@@ -1,6 +1,6 @@
 <div class="race">
 	<div class="players">
-		@for (player of players; track player.id) {
+		@for (player of players(); track player.id) {
 		<div class="player-container row">
 			<div class="player-name col-1" [ngClass]="{ 'not-last': !$last, 'border-bottom-left': $last, 'border-top-left': $first }">
 				<img [src]="player.photo" alt="player photo">
@@ -9,7 +9,7 @@
 				</p>
 			</div>
 			<div class="horse-container col-11">
-				<div class="player" [style.left.%]="player.points | playerLeftPercentage: players!">
+				<div class="player" [style.left.%]="player.points | playerLeftPercentage: players()!">
 					<img src="./assets/img/horse/{{ player.horse }}.svg" width="85">
 				</div>
 				@if ($first) {

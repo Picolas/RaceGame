@@ -1,20 +1,19 @@
-import {inject, Injectable} from '@angular/core';
+import { inject, Injectable, Injector } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import * as GameSelectors from '../../core/store/selectors/game.selectors';
+import { GameStore } from '../../core/store/game.store';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GameExistsGuard implements CanActivate {
-	private router: Router = inject(Router);
-	private store: Store = inject(Store);
+	private router = inject(Router);
+	private gameStore = inject(GameStore);
+	private injector = inject(Injector);
 
-	canActivate(): Observable<boolean> {
-		return this.store.pipe(
-			select(GameSelectors.selectCurrentGame),
+	canActivate() {
+		return toObservable(this.gameStore.currentGame, { injector: this.injector }).pipe(
 			take(1),
 			map(game => {
 				if (game) {

@@ -1,25 +1,16 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Player} from '../../models/Player';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Player } from '../../models/Player';
 
 @Component({
-  selector: 'app-leaderboard',
-	imports: [
-	],
-  templateUrl: './leaderboard.component.html',
-  styleUrl: './leaderboard.component.scss',
+	selector: 'app-leaderboard',
+	templateUrl: './leaderboard.component.html',
+	styleUrl: './leaderboard.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeaderboardComponent {
-	@Input() players: Player[] | null = [];
-	first: Player | null = null;
-	second: Player | null = null;
-	third: Player | null = null;
+	players = input<Player[]>([]);
 
-	ngOnChanges() {
-		if (this.players && this.players.length > 0) {
-			this.first = this.players[0];
-			this.second = this.players[1];
-			this.third = this.players[2];
-		}
-	}
+	readonly first = computed(() => this.players()?.length > 0 ? this.players()[0] : null);
+	readonly second = computed(() => this.players()?.length > 1 ? this.players()[1] : null);
+	readonly third = computed(() => this.players()?.length > 2 ? this.players()[2] : null);
 }

@@ -4,7 +4,7 @@
 		<div class="players-list">
 			<h3 class="mb-10">Joueurs</h3>
 			<div class="players">
-				@for (player of players$ | async; track player.id) {
+				@for (player of players(); track player.id) {
 				<div class="player-container row">
 					<div class="player-photo col-1">
 						<img [src]="player.photo" width="85">

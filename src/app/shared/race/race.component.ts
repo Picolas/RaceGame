@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, Input } from '@angular/core';
 import {Player} from '../../models/Player';
 import {NgClass} from '@angular/common';
 import {PlayerLeftPercentagePipe} from '../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
@@ -14,5 +14,5 @@ import {PlayerLeftPercentagePipe} from '../../pipes/PlayerLeftPercentage/player-
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RaceComponent {
-	@Input() players: Player[] | null = []
+	players = input<Player[]>([]);
 }

@@ -1,11 +1,10 @@
 import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import {Store} from '@ngrx/store';
 import {Router} from '@angular/router';
 import {Game} from '../../../../models/Game';
 import {GameStatus} from '../../../../models/GameStatus';
-import * as GameActions from '../../../../core/store/actions/game.actions';
 import {NgForOf, NgIf} from '@angular/common';
+import { GameStore } from '../../../../core/store/game.store';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +20,7 @@ import {NgForOf, NgIf} from '@angular/common';
 })
 export class CreateComponent implements OnInit {
 	private fb: FormBuilder = inject(FormBuilder);
-	private store: Store = inject(Store);
+	private gameStore = inject(GameStore);
 	private router: Router = inject(Router);
 	gameForm!: FormGroup;
 
@@ -67,8 +66,7 @@ export class CreateComponent implements OnInit {
 				})),
 				status: GameStatus.CREATED,
 			};
-
-			this.store.dispatch(GameActions.createOrResetGame({ game }));
+			this.gameStore.createOrResetGame({ ...game });
 
 			this.router.navigate(['game']);
 		} else {
