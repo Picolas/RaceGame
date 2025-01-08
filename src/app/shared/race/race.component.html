@@ -1,1 +1,24 @@
-<p>race works!</p>
+<div class="race">
+	<div class="players">
+		@for (player of players; track player.id) {
+		<div class="player-container row">
+			<div class="player-name col-1" [ngClass]="{ 'not-last': !$last, 'border-bottom-left': $last, 'border-top-left': $first }">
+				<img [src]="player.photo" alt="player photo">
+				<p>
+					{{ player.name }}
+				</p>
+			</div>
+			<div class="horse-container col-11">
+				<div class="player" [style.left.%]="player.points | playerLeftPercentage: players!">
+					<img src="./assets/img/horse/{{ player.horse }}.svg" width="85">
+				</div>
+				@if ($first) {
+					<div class="top-grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': $first }"></div>
+				} @else {
+					<div class="grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': $first }"></div>
+				}
+			</div>
+		</div>
+		}
+	</div>
+</div>

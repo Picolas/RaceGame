@@ -1,3 +1,5 @@
 <div class="container mt-20">
-	<app-leaderboard/>
+	<app-leaderboard [players]="players$ | async | ranks"/>
+	<br>
+	<app-race [players]="players$ | async"/>
 </div>

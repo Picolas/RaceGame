@@ -1,0 +1,6 @@
+@use "variables" as *;
+
+.button-group {
+	display: flex;
+	gap: $padding;
+}

@@ -13,4 +13,72 @@
 		color: $alternative-dark-blue;
 		margin: 0;
 	}
+
+	.leader {
+		.first {
+			background-color: $alternative-yellow;
+			height: 115px;
+			border-radius: $rounded;
+			align-self: end;
+			padding: $padding;
+			display: flex;
+
+			.number {
+				font-size: 2.8rem;
+				font-weight: 900;
+				align-items: center;
+				display: flex;
+			}
+			.player-name {
+				flex: 1;
+				display: flex;
+				justify-content: end;
+				align-items: center;
+				font-size: 1.5rem;
+			}
+		}
+		.second {
+			background-color: $alternative-pink;
+			height: 75px;
+			border-radius: $rounded;
+			align-self: end;
+			padding: $padding;
+			display: flex;
+
+			.number {
+				font-size: 2rem;
+				font-weight: 600;
+				align-items: center;
+				display: flex;
+			}
+			.player-name {
+				flex: 1;
+				display: flex;
+				justify-content: end;
+				align-items: center;
+				font-size: 1.5rem;
+			}
+		}
+		.third {
+			background-color: $alternative-blue;
+			height: 50px;
+			border-radius: $rounded;
+			padding: $padding;
+			align-self: end;
+			display: flex;
+
+			.number {
+				font-size: 1.5rem;
+				align-items: center;
+				display: flex;
+			}
+			.player-name {
+				flex: 1;
+				display: flex;
+				justify-content: end;
+				align-items: center;
+				font-size: 1.5rem;
+			}
+		}
+	}
 }

@@ -1,0 +1,39 @@
+<div class="container mt-20">
+	<div class="config-game-container">
+		<h2 class="mb-10">Configurer la partie</h2>
+		<div class="players-list">
+			<h3 class="mb-10">Joueurs</h3>
+			<div class="players">
+				@for (player of players$ | async; track player.id) {
+				<div class="player-container row">
+					<div class="player-photo col-1">
+						<img [src]="player.photo" width="85">
+					</div>
+					<div class="player-horse col-1">
+						<img src="./assets/img/horse/{{ player.horse }}.svg" width="85">
+					</div>
+					<div class="player-name col-6">
+						<p>{{ player.name }}</p>
+					</div>
+					<div class="player-name col-1">
+						<p>{{ player.points }} points</p>
+					</div>
+					<div class="player-action col-3">
+						<div class="button-group">
+							<button type="button" class="remove" (click)="onClickRemovePoint(player)">
+								-1
+							</button>
+							<button type="button" class="add" (click)="onClickAddPoint(player)">
+								+1
+							</button>
+							<button type="button" class="delete">
+								Supprimer ce Joueur
+							</button>
+						</div>
+					</div>
+				</div>
+				}
+			</div>
+		</div>
+	</div>
+</div>

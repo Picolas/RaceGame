@@ -1,0 +1,116 @@
+@use 'variables' as *;
+
+.race {
+	border-radius: $rounded;
+	background-color: $light-gray;
+	padding: $padding;
+}
+
+.player-container {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: center;
+	background-color: $white;
+	border-radius: $rounded;
+	height: 50px;
+
+	.player-name {
+		font-size: 1.1rem;
+		width: 150px;
+		height: 100%;
+		color: $white;
+		background-color: $alternative-dark-blue;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: $padding;
+
+		img {
+			width: 30px;
+			height: 30px;
+			margin-right: $padding;
+			border-radius: 50%;
+		}
+
+		p {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			width: inherit;
+			text-align: left;
+		}
+
+		&.not-last {
+			border-bottom: 2.5px solid $alternative-blue;
+		}
+
+		.first {
+			background-color: $alternative-yellow;
+			color: $black;
+			font-weight: bold;
+		}
+
+		.second {
+			background-color: $alternative-pink;
+			color: $black;
+			font-weight: bold;
+		}
+
+		.third {
+			background-color: $alternative-blue;
+			color: $black;
+			font-weight: bold;
+		}
+	}
+}
+
+.border-top-left {
+	border-top-left-radius: $rounded;
+}
+
+.border-bottom-left {
+	border-bottom-left-radius: $rounded;
+}
+
+.border-bottom-right {
+	border-bottom-right-radius: $rounded;
+}
+
+.border-top-right {
+	border-top-right-radius: $rounded;
+}
+
+.horse-container {
+	position: relative;;
+}
+
+.player {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 0;
+	color: $white;
+
+	img {
+		position: relative;
+		top: -5px;
+	}
+}
+
+.top-grass {
+	height: 50px;
+	width: 100%;
+	background-size: contain;
+	background-repeat: repeat-x;
+	background-image: url('/assets/img/top_grass.png');
+}
+
+.grass {
+	height: 50px;
+	width: 100%;
+	background-size: contain;
+	background-repeat: repeat-x;
+	background-image: url('/assets/img/grass.png');
+}

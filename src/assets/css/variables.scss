@@ -11,6 +11,8 @@ $alternative-dark-blue: #37358A;
 $alternative-pink: #E8318A;
 $alternative-yellow: #FFDC00;
 
+$black-gray: #1a1a1a;
+$gray: #2f2f2f;
 $black: #000000;
 
 $container-max-width: 1200px;
@@ -99,4 +101,48 @@ $padding: 10px;
 
 .col-12 {
   flex: 12;
+}
+
+.error {
+	color: $alternative-pink;
+	background-color: $light-gray;
+	padding: $padding;
+	margin-top: $padding;
+	margin-bottom: $padding;
+	border-radius: $rounded;
+}
+
+.form-group {
+	margin-top: $padding;
+	margin-bottom: $padding;
+	display: flex;
+	flex-direction: column;
+
+	input {
+		padding: 5px;
+		border-radius: $rounded;
+		border: 1px solid $alternative-dark-blue;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+
+	label {
+		margin-bottom: 5px;
+	}
+}
+
+button {
+	padding: $padding;
+	border-radius: $rounded;
+	border: none;
+	background-color: $black-gray;
+	color: $white;
+	cursor: pointer;
+	transition: 0.1s;
+
+	&:hover {
+		background-color: $gray;
+		color: $white;
+		transition: 0.25s;
+	}
 }

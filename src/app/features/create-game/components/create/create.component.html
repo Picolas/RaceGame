@@ -1,0 +1,65 @@
+<div class="container mt-20">
+	<div class="create-game-container">
+		<h2>Créer une Nouvelle Partie</h2>
+		<form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
+
+			<div class="form-group">
+				<label for="gameName">Nom de la Partie :</label>
+				<input id="gameName" type="text" formControlName="name" placeholder="Entrez le nom de la partie" />
+				<div class="error" *ngIf="gameForm.get('name')?.dirty && gameForm.get('name')?.invalid">
+					<small *ngIf="gameForm.get('name')?.errors?.['required']">Le nom de la partie est requis.</small>
+					<small *ngIf="gameForm.get('name')?.errors?.['minlength']">Le nom doit comporter au moins 3 caractères.</small>
+				</div>
+			</div>
+
+			<div formArrayName="players">
+				<div *ngFor="let player of players.controls; let i = index" [formGroupName]="i" class="player-group">
+
+					<h3>Joueur {{ i + 1 }}</h3>
+
+					<div class="form-group">
+						<label for="name-{{i}}">Pseudo :</label>
+						<input id="name-{{i}}" type="text" formControlName="name" placeholder="Pseudo" />
+						<div class="error" *ngIf="player.get('name')?.dirty && player.get('name')?.invalid">
+							<small *ngIf="player.get('name')?.errors?.['required']">Le pseudo est requis.</small>
+						</div>
+					</div>
+
+					<div class="form-group-row">
+						<label for="hasPhoto-{{i}}">Ajouter une photo ?</label>
+						<input id="hasPhoto-{{i}}" type="checkbox" formControlName="hasPhoto" placeholder="Pseudo" />
+					</div>
+
+					@if (player.get('hasPhoto')?.value) {
+					<div class="form-group">
+						<label for="photo-{{i}}">URL de l'Image :</label>
+						<input id="photo-{{i}}" type="url" formControlName="photo" placeholder="https://example.com/image.jpg" />
+						<div class="error" *ngIf="player.get('photo')?.dirty && player.get('photo')?.invalid">
+							<small *ngIf="player.get('photo')?.errors?.['required']">L'URL de l'image est requise.</small>
+							<small *ngIf="player.get('photo')?.errors?.['pattern']">Entrez une URL valide.</small>
+						</div>
+					</div>
+					}
+
+					<button type="button" class="remove-button" (click)="removePlayer(i)" [disabled]="players.length === 1">
+						Supprimer ce Joueur
+					</button>
+
+					<hr />
+				</div>
+			</div>
+
+
+			<div class="button-group">
+				<button type="button" class="add-button" (click)="addPlayer()">
+					Ajouter un Joueur
+				</button>
+
+				<button type="submit" class="submit-button" [disabled]="gameForm.invalid">
+					Créer la Partie
+				</button>
+			</div>
+		</form>
+	</div>
+
+</div>

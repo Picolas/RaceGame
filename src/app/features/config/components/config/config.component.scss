@@ -1,0 +1,42 @@
+@use "variables" as *;
+
+.button-group {
+	display: flex;
+	gap: $padding;
+}
+
+.players-list {
+	background-color: $light-gray;
+	border-radius: $rounded;
+	padding: $padding;
+}
+
+.player-container {
+	background-color: $white;
+	border-radius: $rounded;
+	margin-bottom: $padding;
+	height: 50px;
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+	}
+}
+
+.player-action {
+	display: flex;
+	justify-content: end;
+}
+
+.add {
+	background-color: $alternative-blue;
+}
+
+.remove {
+	background-color: $alternative-pink;
+}
