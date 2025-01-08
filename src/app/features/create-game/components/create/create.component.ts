@@ -26,7 +26,7 @@ export class CreateComponent implements OnInit {
 
 	ngOnInit() {
 		this.gameForm = this.fb.group({
-			name: ['', [Validators.required, Validators.minLength(3)]],
+			name: ['', [Validators.minLength(3)]],
 			players: this.fb.array([
 				this.createPlayerFormGroup()
 			])

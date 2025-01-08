@@ -18,9 +18,9 @@ import { GameStatus } from '../../models/GameStatus';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RaceComponent {
+	private confettiService = inject(ConfettiService);
 	players = input<Player[]>([]);
 	game = input<Game | null>();
-	private confettiService = inject(ConfettiService);
 	previousPoints: { [key: string]: number } = {};
 	isFirstRender = true;
 
@@ -53,7 +53,7 @@ export class RaceComponent {
 						const y = rect.top + rect.height / 2;
 						this.confettiService.launchAt(x, y);
 					}
-				}, 250);
+				}, 400);
 			}
 			this.previousPoints[player.id] = player.points;
 		});

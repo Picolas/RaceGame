@@ -1,8 +1,9 @@
-<div class="container mt-20">
+ <div class="container mt-20 mb-20">
 	<div class="create-game-container">
 		<h2>Créer une Nouvelle Partie</h2>
 		<form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
 
+			<!--
 			<div class="form-group">
 				<label for="gameName">Nom de la Partie :</label>
 				<input id="gameName" type="text" formControlName="name" placeholder="Entrez le nom de la partie" />
@@ -11,6 +12,7 @@
 					<small *ngIf="gameForm.get('name')?.errors?.['minlength']">Le nom doit comporter au moins 3 caractères.</small>
 				</div>
 			</div>
+			-->
 
 			<div formArrayName="players">
 				<div *ngFor="let player of players.controls; let i = index" [formGroupName]="i" class="player-group">

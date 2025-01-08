@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {MenuItem} from 'primeng/api';
 import {RouterLink} from '@angular/router';
+import { LayoutService } from '../../services/LayoutService/layout.service';
 
 @Component({
   selector: 'app-header',
@@ -11,23 +12,9 @@ import {RouterLink} from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+	protected layoutService: LayoutService = inject(LayoutService);
 
-  items: MenuItem[] = [
-    {
-      label: 'Home',
-      icon: 'pi pi-fw pi-home',
-      routerLink: ['/']
-    },
-    {
-      label: 'Game',
-      icon: 'pi pi-fw pi-gamepad',
-      routerLink: ['/game']
-    },
-    {
-      label: 'About',
-      icon: 'pi pi-fw pi-info',
-      routerLink: ['/about']
-    }
-    ]
-
+	toggleFluid() {
+	  		this.layoutService.toggleFluid();
+	  }
 }

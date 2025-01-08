@@ -7,6 +7,7 @@ import { LeaderboardComponent } from '../../../../shared/leaderboard/leaderboard
 import { RaceComponent } from '../../../../shared/race/race.component';
 import { RanksPipe } from '../../../../pipes/Ranks/ranks.pipe';
 import { GameStore } from '../../../../core/store/game.store';
+import { LayoutService } from '../../../../core/services/LayoutService/layout.service';
 
 @Component({
 	selector: 'app-board',
@@ -21,6 +22,7 @@ import { GameStore } from '../../../../core/store/game.store';
 })
 export class BoardComponent {
 	private gameStore = inject(GameStore);
+	protected layoutService = inject(LayoutService);
 	players = this.gameStore.players;
 	game = this.gameStore.game;
 }
