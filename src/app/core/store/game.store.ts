@@ -1,7 +1,9 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { patchState, signalStore, withState, withComputed, withMethods } from '@ngrx/signals';
+import { computed, inject, effect } from '@angular/core';
+import { GameService } from '../../features/game/services/GameService/game.service';
 import { Game } from '../../models/Game';
 import { Player } from '../../models/Player';
-import { GameService } from '../../features/game/services/GameService/game.service';
+import { LocalStorageService } from '../services/LocalStorageService/local-storage.service';
 
 export interface GameState {
 	currentGame: Game | null;
@@ -9,142 +11,113 @@ export interface GameState {
 	error: any;
 }
 
-@Injectable({ providedIn: 'root' })
-export class GameStore {
-	private gameService = inject(GameService);
+const initialState: GameState = {
+	currentGame: null,
+	loading: false,
+	error: null
+};
 
-	// State
-	private state = signal<GameState>({
-		currentGame: null,
-		loading: false,
-		error: null
-	});
+export const GameStore = signalStore(
+	{ providedIn: 'root' },
+	withState<GameState>(initialState),
 
-	// Selectors
-	readonly currentGame = computed(() => this.state().currentGame);
-	readonly loading = computed(() => this.state().loading);
-	readonly error = computed(() => this.state().error);
-	readonly players = computed(() => {
-		return this.state().currentGame?.players || [];
-	});
+	withComputed((state) => ({
+		players: computed(() => state.currentGame()?.players || [])
+	})),
 
-	// Actions
-	loadGame() {
-		this.state.update(state => ({ ...state, loading: true }));
-		this.gameService.getCurrentGame().subscribe({
-			next: (game) => {
-				if (game) {
-					this.state.set({
-						currentGame: game,
+	withMethods((store, gameService = inject(GameService), localStorageService = inject(LocalStorageService)) => {
+		effect(() => {
+			localStorageService.storageChange$.subscribe(({ key, value }) => {
+				if (key === 'currentGame') {
+					patchState(store, {
+						currentGame: value,
 						loading: false,
 						error: null
 					});
 				}
-			},
-			error: (error) => {
-				this.state.update(state => ({
-					...state,
-					error,
-					loading: false
-				}));
-			}
+			});
 		});
-	}
 
-	createOrResetGame(game: Partial<Game>) {
-		this.state.update(state => ({ ...state, loading: true }));
-		this.gameService.createOrResetGame(game).subscribe({
-			next: (createdGame) => {
-				this.state.update(state => ({
-					...state,
-					currentGame: createdGame,
-					loading: false
-				}));
-			},
-			error: (error) => {
-				this.state.update(state => ({
-					...state,
-					error,
-					loading: false
-				}));
-			}
-		});
-	}
-
-	addPlayer(player: Player) {
-		this.state.update(state => ({ ...state, loading: true }));
-		this.gameService.addPlayer(player).subscribe({
-			next: (addedPlayer) => {
-				this.state.update(state => {
-					if (!state.currentGame) return state;
-					return {
-						...state,
-						currentGame: {
-							...state.currentGame,
-							players: [...state.currentGame.players, addedPlayer]
-						},
-						loading: false
-					};
+		return {
+			loadGame() {
+				patchState(store, { loading: true });
+				gameService.getCurrentGame().subscribe({
+					next: (game) => {
+						patchState(store, {
+							currentGame: game,
+							loading: false,
+							error: null
+						});
+					},
+					error: (error) => patchState(store, { error, loading: false })
 				});
 			},
-			error: (error) => {
-				this.state.update(state => ({
-					...state,
-					error,
-					loading: false
-				}));
-			}
-		});
-	}
 
-	updatePlayerPoints(player: Player, points: number) {
-		this.state.update(state => ({ ...state, loading: true }));
-		this.gameService.updatePlayerPoints(player, points).subscribe({
-			next: (updatedPlayer) => {
-				this.state.update(state => {
-					if (!state.currentGame) return state;
-
-					const updatedPlayers = state.currentGame.players.map(p =>
-						p.id === player.id ? { ...p, points } : p
-					);
-
-					return {
-						...state,
-						currentGame: {
-							...state.currentGame,
-							players: updatedPlayers
-						},
-						loading: false
-					};
+			createOrResetGame(game: Partial<Game>) {
+				patchState(store, { loading: true });
+				gameService.createOrResetGame(game).subscribe({
+					next: (createdGame) => {
+						patchState(store, {
+							currentGame: createdGame,
+							loading: false
+						});
+					},
+					error: (error) => patchState(store, { error, loading: false })
 				});
 			},
-			error: (error) => {
-				this.state.update(state => ({
-					...state,
-					error,
-					loading: false
-				}));
-			}
-		});
-	}
 
-	startGame() {
-		this.state.update(state => ({ ...state, loading: true }));
-		this.gameService.startGame().subscribe({
-			next: (game) => {
-				this.state.update(state => ({
-					...state,
-					currentGame: game,
-					loading: false
-				}));
+			updatePlayerPoints(player: Player, points: number) {
+				patchState(store, { loading: true });
+				gameService.updatePlayerPoints(player, points).subscribe({
+					next: () => {
+						const currentGame = store.currentGame();
+						if (currentGame) {
+							patchState(store, {
+								loading: false,
+								currentGame: {
+									...currentGame,
+									players: currentGame.players.map(p =>
+										p.id === player.id ? { ...p, points } : p
+									)
+								}
+							});
+						}
+					},
+					error: (error) => patchState(store, { error, loading: false })
+				});
 			},
-			error: (error) => {
-				this.state.update(state => ({
-					...state,
-					error,
-					loading: false
-				}));
+
+			addPlayer(player: Player) {
+				patchState(store, { loading: true });
+				gameService.addPlayer(player).subscribe({
+					next: (addedPlayer) => {
+						const currentGame = store.currentGame();
+						if (currentGame) {
+							patchState(store, {
+								loading: false,
+								currentGame: {
+									...currentGame,
+									players: [...currentGame.players, addedPlayer]
+								}
+							});
+						}
+					},
+					error: (error) => patchState(store, { error, loading: false })
+				});
+			},
+
+			startGame() {
+				patchState(store, { loading: true });
+				gameService.startGame().subscribe({
+					next: (game) => {
+						patchState(store, {
+							currentGame: game,
+							loading: false
+						});
+					},
+					error: (error) => patchState(store, { error, loading: false })
+				});
 			}
-		});
-	}
-}
+		};
+	})
+);
