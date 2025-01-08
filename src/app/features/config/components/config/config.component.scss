@@ -11,10 +11,15 @@
 	padding: $padding;
 }
 
+.players {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
 .player-container {
 	background-color: $white;
 	border-radius: $rounded;
-	margin-bottom: $padding;
 	height: 50px;
 	padding: 5px;
 	display: flex;

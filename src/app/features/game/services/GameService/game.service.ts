@@ -1,12 +1,12 @@
-import {inject, Injectable} from '@angular/core';
-import {LocalStorageService} from '../../../../core/services/LocalStorageService/local-storage.service';
-import {Game} from '../../../../models/Game';
-import {Observable, of} from 'rxjs';
-import {GameStatus} from '../../../../models/GameStatus';
-import {Player} from '../../../../models/Player';
+import { inject, Injectable } from '@angular/core';
+import { LocalStorageService } from '../../../../core/services/LocalStorageService/local-storage.service';
+import { Game } from '../../../../models/Game';
+import { Observable, of } from 'rxjs';
+import { GameStatus } from '../../../../models/GameStatus';
+import { Player } from '../../../../models/Player';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class GameService {
 
@@ -42,7 +42,7 @@ export class GameService {
 			return of(null);
 		}
 
-		const newGame = {...currentGame, ...updatedGame};
+		const newGame = { ...currentGame, ...updatedGame };
 		this.localStorageService.setItem(this.storageKey, newGame);
 		return of(newGame);
 	}
@@ -103,5 +103,19 @@ export class GameService {
 		const max = 8;
 
 		return `horse${Math.floor(Math.random() * (max - min + 1) + min)}`;
+	}
+
+	removePlayer(player: Player): Observable<void> {
+		const currentGame = this.localStorageService.getItem<Game>(this.storageKey);
+		if (!currentGame) {
+			throw new Error('Aucune partie en cours');
+		}
+
+		const updatedGame: Game = {
+			...currentGame,
+			players: currentGame.players.filter(p => p.id !== player.id)
+		}
+		this.localStorageService.setItem(this.storageKey, updatedGame);
+		return of(void 0);
 	}
 }

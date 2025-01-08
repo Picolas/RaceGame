@@ -69,21 +69,19 @@ export const GameStore = signalStore(
 			updatePlayerPoints(player: Player, points: number) {
 				patchState(store, { loading: true });
 				gameService.updatePlayerPoints(player, points).subscribe({
-					next: () => {
+					next: (updatedPlayer) => {
 						const currentGame = store.currentGame();
 						if (currentGame) {
+							const updatedPlayers = currentGame.players.map(p =>
+								p.id === updatedPlayer.id ? updatedPlayer : p
+							);
 							patchState(store, {
-								loading: false,
-								currentGame: {
-									...currentGame,
-									players: currentGame.players.map(p =>
-										p.id === player.id ? { ...p, points } : p
-									)
-								}
+								currentGame: { ...currentGame, players: updatedPlayers },
+								loading: false
 							});
 						}
 					},
-					error: (error) => patchState(store, { error, loading: false })
+					error: (error) => patchState(store, { error: error.message, loading: false })
 				});
 			},
 
@@ -116,6 +114,23 @@ export const GameStore = signalStore(
 						});
 					},
 					error: (error) => patchState(store, { error, loading: false })
+				});
+			},
+
+			removePlayer(player: Player) {
+				patchState(store, { loading: true });
+				gameService.removePlayer(player).subscribe({
+					next: () => {
+						const currentGame = store.currentGame();
+						if (currentGame) {
+							const updatedPlayers = currentGame.players.filter(p => p.id !== player.id);
+							patchState(store, {
+								currentGame: { ...currentGame, players: updatedPlayers },
+								loading: false
+							});
+						}
+					},
+					error: (error) => patchState(store, { error: error.message, loading: false })
 				});
 			}
 		};

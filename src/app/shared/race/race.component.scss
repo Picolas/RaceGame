@@ -83,7 +83,7 @@
 }
 
 .horse-container {
-	position: relative;;
+	position: relative;
 }
 
 .player {
@@ -92,10 +92,26 @@
 	transform: translateY(-50%);
 	left: 0;
 	color: $white;
+	transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 
 	img {
 		position: relative;
 		top: -5px;
+		animation: gallop 0.5s infinite;
+	}
+}
+
+@keyframes gallop {
+	0% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-5px);
+	}
+
+	100% {
+		transform: translateY(0);
 	}
 }
 
