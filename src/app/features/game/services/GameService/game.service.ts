@@ -58,6 +58,9 @@ export class GameService {
 			throw new Error('Aucune partie en cours');
 		}
 
+		player.id = this.generateId();
+		player.horse = this.getRandomHorse();
+
 		const updatedGame: Game = {
 			...currentGame,
 			players: [...currentGame.players, player]
@@ -114,6 +117,20 @@ export class GameService {
 		const updatedGame: Game = {
 			...currentGame,
 			players: currentGame.players.filter(p => p.id !== player.id)
+		}
+		this.localStorageService.setItem(this.storageKey, updatedGame);
+		return of(void 0);
+	}
+
+	endGame(): Observable<void> {
+		const currentGame = this.localStorageService.getItem<Game>(this.storageKey);
+		if (!currentGame) {
+			throw new Error('Aucune partie en cours');
+		}
+
+		const updatedGame: Game = {
+			...currentGame,
+			status: GameStatus.FINISHED
 		}
 		this.localStorageService.setItem(this.storageKey, updatedGame);
 		return of(void 0);

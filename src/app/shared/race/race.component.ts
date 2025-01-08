@@ -1,11 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, input } from '@angular/core';
 import { Player } from '../../models/Player';
+import { Game } from '../../models/Game';
 import { NgClass } from '@angular/common';
 import { PlayerLeftPercentagePipe } from '../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
 import { ConfettiService } from '../../core/services/ConfettiService/confetti.service';
+import { GameStatus } from '../../models/GameStatus';
 
 @Component({
 	selector: 'app-race',
+	standalone: true,
 	imports: [
 		NgClass,
 		PlayerLeftPercentagePipe
@@ -16,9 +19,19 @@ import { ConfettiService } from '../../core/services/ConfettiService/confetti.se
 })
 export class RaceComponent {
 	players = input<Player[]>([]);
+	game = input<Game | null>();
 	private confettiService = inject(ConfettiService);
 	previousPoints: { [key: string]: number } = {};
 	isFirstRender = true;
+
+	constructor() {
+		effect(() => {
+			const currentGame = this.game();
+			if (currentGame?.status === GameStatus.FINISHED) {
+				this.confettiService.fireworks();
+			}
+		});
+	}
 
 	ngOnChanges() {
 		if (this.isFirstRender) {

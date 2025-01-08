@@ -22,7 +22,8 @@ export const GameStore = signalStore(
 	withState<GameState>(initialState),
 
 	withComputed((state) => ({
-		players: computed(() => state.currentGame()?.players || [])
+		players: computed(() => state.currentGame()?.players || []),
+		game: computed(() => state.currentGame())
 	})),
 
 	withMethods((store, gameService = inject(GameService), localStorageService = inject(LocalStorageService)) => {
@@ -129,6 +130,19 @@ export const GameStore = signalStore(
 								loading: false
 							});
 						}
+					},
+					error: (error) => patchState(store, { error: error.message, loading: false })
+				});
+			},
+
+			endGame() {
+				patchState(store, { loading: true });
+				gameService.endGame().subscribe({
+					next: () => {
+						patchState(store, {
+							currentGame: null,
+							loading: false
+						});
 					},
 					error: (error) => patchState(store, { error: error.message, loading: false })
 				});

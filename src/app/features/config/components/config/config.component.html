@@ -34,6 +34,16 @@
 				</div>
 				}
 			</div>
+			<div class="button-group mt-10">
+				<button type="button" class="add-button" (click)="showAddPlayerModal()">
+					Ajouter un Joueur
+				</button>
+				<button type="button" class="end-button" (click)="onClickEndGame()">
+					Terminer la Partie
+				</button>
+			</div>
 		</div>
 	</div>
 </div>
+
+<app-add-player-modal />

@@ -22,4 +22,5 @@ import { GameStore } from '../../../../core/store/game.store';
 export class BoardComponent {
 	private gameStore = inject(GameStore);
 	players = this.gameStore.players;
+	game = this.gameStore.game;
 }
