@@ -4,15 +4,27 @@
 			<div class="row gap">
 				<div class="second col-4">
 					<p  class="number">2</p>
-					<p class="player-name">{{ second()?.name }}</p>
+					<div class="row-col">
+						<p class="player-name">{{ second()?.name }}</p>
+						<p class="player-points"><small>{{ second()?.points }} points</small></p>
+					</div>
 				</div>
 				<div class="first col-6">
 					<p class="number">1</p>
-					<p class="player-name">{{ first()?.name }}</p>
+					<div class="row-col">
+						<div class="player-photo">
+							<img [src]="first()?.photo" alt="player photo" />
+						</div>
+						<p class="player-name">{{ first()?.name }}</p>
+						<p class="player-points"><small>{{ first()?.points }} points</small></p>
+					</div>
 				</div>
 				<div class="third col-3">
 					<p  class="number">3</p>
-					<p class="player-name">{{ third()?.name }}</p>
+					<div class="row-col">
+						<p class="player-name">{{ third()?.name }}</p>
+						<p class="player-points"><small>{{ third()?.points }} points</small></p>
+					</div>
 				</div>
 			</div>
 		</div>

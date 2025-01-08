@@ -15,13 +15,41 @@
 	}
 
 	.leader {
+		.row-col {
+			flex: 1;
+			display: flex;
+			justify-content: end;
+			align-items: center;
+			flex-direction: column;
+			position: relative;
+		}
+
 		.first {
 			background-color: $alternative-yellow;
-			height: 115px;
+			height: 7.188rem;
 			border-radius: $rounded;
 			align-self: end;
 			padding: $padding;
 			display: flex;
+
+			.player-photo {
+				width: 5rem;
+				height: 5rem;
+				top: -2.813rem;
+				border-radius: 50%;
+				background-color: $alternative-yellow;
+				position: absolute;
+			}
+
+			.player-photo img {
+				width: 4.375rem;
+				height: 4.375rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
 
 			.number {
 				font-size: 2.8rem;
@@ -29,17 +57,15 @@
 				align-items: center;
 				display: flex;
 			}
+
 			.player-name {
-				flex: 1;
-				display: flex;
-				justify-content: end;
-				align-items: center;
 				font-size: 1.5rem;
 			}
 		}
+
 		.second {
 			background-color: $alternative-pink;
-			height: 75px;
+			height: 4.688rem;
 			border-radius: $rounded;
 			align-self: end;
 			padding: $padding;
@@ -50,20 +76,19 @@
 				font-weight: 600;
 				align-items: center;
 				display: flex;
+				flex-direction: column;
 			}
+
 			.player-name {
-				flex: 1;
-				display: flex;
-				justify-content: end;
-				align-items: center;
 				font-size: 1.5rem;
 			}
 		}
+
 		.third {
 			background-color: $alternative-blue;
-			height: 50px;
+			height: 3.125rem;
 			border-radius: $rounded;
-			padding: $padding;
+			padding: $padding $padding 0px;
 			align-self: end;
 			display: flex;
 
@@ -72,12 +97,9 @@
 				align-items: center;
 				display: flex;
 			}
+
 			.player-name {
-				flex: 1;
-				display: flex;
-				justify-content: end;
-				align-items: center;
-				font-size: 1.5rem;
+				font-size: 1rem;
 			}
 		}
 	}
