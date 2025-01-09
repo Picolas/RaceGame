@@ -102,7 +102,7 @@ export class GameService {
 
 	private getRandomHorse(): string {
 		const min = 1;
-		const max = 8;
+		const max = 12;
 
 		return `horse${Math.floor(Math.random() * (max - min + 1) + min)}`;
 	}
