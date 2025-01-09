@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="horse-container col-11">
-				<div class="player" [style.left.%]="player.points | playerLeftPercentage: players()!: game()" [id]="'horse-' + player.id">
+				<div class="player" [style.left.%]="player.points | playerLeftPercentage: allPlayers()!: game()" [id]="'horse-' + player.id">
 					<img src="./assets/img/horse/{{ player.horse }}.svg" width="85">
 				</div>
 				@if ($first) {

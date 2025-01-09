@@ -3,7 +3,11 @@
     <app-leaderboard [players]="sortedPlayers()"/>
   }
 
-  <app-race [players]="pagedPlayers()" [game]="game()"/>
+  <app-race
+    [players]="pagedPlayers()"
+    [allPlayers]="players()"
+    [game]="game()"
+  />
 
   @if (pageNumbers().length > 1) {
     <div class="pagination">

@@ -21,6 +21,7 @@ import { signal } from '@angular/core';
 export class RaceComponent {
 	private confettiService = inject(ConfettiService);
 	players = input<Player[]>([]);
+	allPlayers = input<Player[]>([]);
 	game = input<Game | null>();
 	previousPoints: { [key: string]: number } = {};
 	isFirstRender = true;
