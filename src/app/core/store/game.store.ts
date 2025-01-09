@@ -89,16 +89,17 @@ export const GameStore = signalStore(
 			addPlayer(player: Player) {
 				patchState(store, { loading: true });
 				gameService.addPlayer(player).subscribe({
-					next: (addedPlayer) => {
+					next: () => {
 						const currentGame = store.currentGame();
 						if (currentGame) {
 							patchState(store, {
 								loading: false,
 								currentGame: {
 									...currentGame,
-									players: [...currentGame.players, addedPlayer]
+									players: [...currentGame.players]
 								}
-							});
+							}
+							);
 						}
 					},
 					error: (error) => patchState(store, { error, loading: false })
