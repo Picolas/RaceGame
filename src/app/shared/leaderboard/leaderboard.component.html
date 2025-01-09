@@ -6,7 +6,7 @@
 					<p  class="number">2</p>
 					<div class="row-col">
 						<div class="player-photo">
-							<img [src]="second()?.photo" alt="player photo" />
+							<img [src]="second()?.photo || './assets/img/profile_picture.png'" alt="player photo" />
 						</div>
 						<div class="row gap-10 center">
 							<p class="player-name">{{ second()?.name }}</p>
@@ -18,7 +18,7 @@
 					<p class="number">1</p>
 					<div class="row-col">
 						<div class="player-photo">
-							<img [src]="first()?.photo" alt="player photo" />
+							<img [src]="first()?.photo || './assets/img/profile_picture.png'" alt="player photo" />
 						</div>
 						<p class="player-name">{{ first()?.name }}</p>
 						<p class="player-points"><small>{{ first()?.points }} points</small></p>
@@ -28,7 +28,7 @@
 					<p  class="number">3</p>
 					<div class="row-col">
 						<div class="player-photo">
-							<img [src]="third()?.photo" alt="player photo" />
+							<img [src]="third()?.photo || './assets/img/profile_picture.png'" alt="player photo" />
 						</div>
 						<div class="row gap-10 center">
 							<p class="player-name">{{ third()?.name }}</p>
