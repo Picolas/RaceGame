@@ -4,11 +4,13 @@ import { GameExistsGuard } from './guards/GameExists/game-exists.guard';
 export const routes: Routes = [
 	{
 		path: 'game',
-		loadComponent: () => import('./features/game/pages/game/game.component').then(m => m.GameComponent)
+		loadComponent: () => import('./features/game/pages/game/game.component').then(m => m.GameComponent),
+		canActivate: [GameExistsGuard]
 	},
 	{
 		path: 'game/page/:page',
-		loadComponent: () => import('./features/game/pages/game/game.component').then(m => m.GameComponent)
+		loadComponent: () => import('./features/game/pages/game/game.component').then(m => m.GameComponent),
+		canActivate: [GameExistsGuard]
 	},
 	/*
 	{
