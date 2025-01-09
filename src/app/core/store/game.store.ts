@@ -147,6 +147,32 @@ export const GameStore = signalStore(
 					},
 					error: (error) => patchState(store, { error: error.message, loading: false })
 				});
+			},
+
+			resetPoints() {
+				patchState(store, { loading: true });
+				gameService.resetPoints().subscribe({
+					next: (game) => {
+						patchState(store, {
+							currentGame: game,
+							loading: false
+						});
+					},
+					error: (error) => patchState(store, { error: error.message, loading: false })
+				});
+			},
+
+			restartGame() {
+				patchState(store, { loading: true });
+				gameService.restartGame().subscribe({
+					next: (game) => {
+						patchState(store, {
+							currentGame: game,
+							loading: false
+						});
+					},
+					error: (error) => patchState(store, { error: error.message, loading: false })
+				});
 			}
 		};
 	})

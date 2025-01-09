@@ -16,6 +16,7 @@ import { AddPlayerModalComponent } from '../../../../shared/add-player-modal/add
 export class ConfigComponent {
 	private gameStore = inject(GameStore);
 	players = this.gameStore.players;
+	game = this.gameStore.game;
 	@ViewChild(AddPlayerModalComponent) addPlayerModal!: AddPlayerModalComponent;
 
 	onClickAddPoint(player: Player) {
@@ -43,6 +44,18 @@ export class ConfigComponent {
 	onClickEndGame() {
 		if (confirm('Êtes-vous sûr de vouloir terminer la partie ?')) {
 			this.gameStore.endGame();
+		}
+	}
+
+	onClickResetPoints() {
+		if (confirm('Êtes-vous sûr de vouloir réinitialiser tous les points ?')) {
+			this.gameStore.resetPoints();
+		}
+	}
+
+	onClickRestartGame() {
+		if (confirm('Êtes-vous sûr de vouloir relancer la partie ?')) {
+			this.gameStore.restartGame();
 		}
 	}
 }

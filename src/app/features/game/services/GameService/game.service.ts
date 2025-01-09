@@ -135,4 +135,35 @@ export class GameService {
 		this.localStorageService.setItem(this.storageKey, updatedGame);
 		return of(void 0);
 	}
+
+	resetPoints(): Observable<Game | null> {
+		const currentGame = this.localStorageService.getItem<Game>(this.storageKey);
+		if (!currentGame) {
+			throw new Error('Aucune partie en cours');
+		}
+
+		const updatedGame: Game = {
+			...currentGame,
+			players: currentGame.players.map(player => ({
+				...player,
+				points: 0
+			}))
+		};
+		this.localStorageService.setItem(this.storageKey, updatedGame);
+		return of(updatedGame);
+	}
+
+	restartGame(): Observable<Game | null> {
+		const currentGame = this.localStorageService.getItem<Game>(this.storageKey);
+		if (!currentGame) {
+			throw new Error('Aucune partie en cours');
+		}
+
+		const updatedGame: Game = {
+			...currentGame,
+			status: GameStatus.STARTED
+		};
+		this.localStorageService.setItem(this.storageKey, updatedGame);
+		return of(updatedGame);
+	}
 }

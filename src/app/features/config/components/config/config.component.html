@@ -38,6 +38,14 @@
 				<button type="button" class="add-button" (click)="showAddPlayerModal()">
 					Ajouter un Joueur
 				</button>
+				<button type="button" class="reset-button" (click)="onClickResetPoints()">
+					Réinitialiser les points
+				</button>
+				@if (game()?.status === 'FINISHED') {
+					<button type="button" class="restart-button" (click)="onClickRestartGame()">
+						Relancer la partie
+					</button>
+				}
 				<button type="button" class="end-button" (click)="onClickEndGame()">
 					Terminer la Partie
 				</button>
