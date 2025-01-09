@@ -123,6 +123,9 @@
 	background-size: contain;
 	background-repeat: repeat-x;
 	background-image: url('/assets/img/top_grass.png');
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
 }
 
 .grass {
@@ -131,4 +134,7 @@
 	background-size: contain;
 	background-repeat: repeat-x;
 	background-image: url('/assets/img/grass.png');
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
 }
