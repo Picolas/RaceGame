@@ -16,9 +16,7 @@
 
 			<div formArrayName="players">
 				<div *ngFor="let player of players.controls; let i = index" [formGroupName]="i" class="player-group">
-
 					<h3>Joueur {{ i + 1 }}</h3>
-
 					<div class="form-group">
 						<label for="name-{{i}}">Pseudo :</label>
 						<input id="name-{{i}}" type="text" formControlName="name" placeholder="Pseudo" />

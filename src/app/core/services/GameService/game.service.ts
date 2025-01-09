@@ -1,15 +1,14 @@
 import { inject, Injectable } from '@angular/core';
-import { LocalStorageService } from '../../../../core/services/LocalStorageService/local-storage.service';
-import { Game } from '../../../../models/Game';
+import { LocalStorageService } from '../LocalStorageService/local-storage.service';
+import { Game } from '../../../models/Game';
 import { Observable, of } from 'rxjs';
-import { GameStatus } from '../../../../models/GameStatus';
-import { Player } from '../../../../models/Player';
+import { GameStatus } from '../../../models/GameStatus';
+import { Player } from '../../../models/Player';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class GameService {
-
 	private storageKey = 'currentGame';
 	private localStorageService: LocalStorageService = inject(LocalStorageService);
 

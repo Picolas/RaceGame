@@ -1,6 +1,6 @@
 import { patchState, signalStore, withState, withComputed, withMethods } from '@ngrx/signals';
 import { computed, inject, effect } from '@angular/core';
-import { GameService } from '../../features/game/services/GameService/game.service';
+import { GameService } from '../services/GameService/game.service';
 import { Game } from '../../models/Game';
 import { Player } from '../../models/Player';
 import { LocalStorageService } from '../services/LocalStorageService/local-storage.service';
