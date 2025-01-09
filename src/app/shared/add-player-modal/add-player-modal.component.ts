@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GameStore } from '../../core/store/game.store';
 import { Player } from '../../models/Player';
+import { PhotoService } from '../../core/services/PhotoService/photo.service';
 
 @Component({
 	selector: 'app-add-player-modal',
@@ -15,6 +16,7 @@ import { Player } from '../../models/Player';
 export class AddPlayerModalComponent {
 	private fb = inject(FormBuilder);
 	private gameStore = inject(GameStore);
+	private photoService = inject(PhotoService);
 	visible = signal(false);
 	playerForm: FormGroup;
 
@@ -22,7 +24,7 @@ export class AddPlayerModalComponent {
 		this.playerForm = this.fb.group({
 			name: ['', Validators.required],
 			hasPhoto: [false],
-			photo: ['', [Validators.pattern(/https?:\/\/.+/)]]
+			photo: ['', []]//Validators.pattern(/https?:\/\/.+/)
 		});
 	}
 
@@ -37,9 +39,13 @@ export class AddPlayerModalComponent {
 
 	onSubmit() {
 		if (this.playerForm.valid) {
+			const photo = this.playerForm.value.hasPhoto ?
+				(this.photoService.getPhotoUrlFromInput(this.playerForm.value.photo) || '/assets/img/profile_picture.png') :
+				'/assets/img/profile_picture.png';
+
 			const newPlayer: Partial<Player> = {
 				name: this.playerForm.value.name,
-				photo: this.playerForm.value.hasPhoto ? this.playerForm.value.photo : '/assets/img/profile_picture.png',
+				photo: photo,
 				points: 0
 			};
 			this.gameStore.addPlayer(newPlayer as Player);

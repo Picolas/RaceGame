@@ -1,0 +1,18 @@
+<div class="game-container">
+  @if (showLeaderboard()) {
+    <app-leaderboard [players]="sortedPlayers()"/>
+  }
+
+  <app-race [players]="pagedPlayers()" [game]="game()"/>
+
+  @if (pageNumbers().length > 1) {
+    <div class="pagination">
+      @for (page of pageNumbers(); track page) {
+        <a [routerLink]="['/game/page', page]"
+           [class.active]="currentPage() === page">
+          {{ page }}
+        </a>
+      }
+    </div>
+  }
+</div>

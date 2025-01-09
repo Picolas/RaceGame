@@ -1,0 +1,39 @@
+@use 'variables' as *;
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  //margin-top: 2rem;
+
+  a {
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    cursor: pointer;
+
+    &.active {
+      background-color: $alternative-blue;
+      color: $white;
+    }
+
+    &:hover:not(.active) {
+      background-color: #f0f0f0;
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+  }
+}
