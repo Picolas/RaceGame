@@ -140,9 +140,9 @@ export const GameStore = signalStore(
 			endGame() {
 				patchState(store, { loading: true });
 				gameService.endGame().subscribe({
-					next: () => {
+					next: (game) => {
 						patchState(store, {
-							currentGame: null,
+							currentGame: game,
 							loading: false
 						});
 					},

@@ -121,7 +121,7 @@ export class GameService {
 		return of(void 0);
 	}
 
-	endGame(): Observable<void> {
+	endGame(): Observable<Game | null> {
 		const currentGame = this.localStorageService.getItem<Game>(this.storageKey);
 		if (!currentGame) {
 			throw new Error('Aucune partie en cours');
@@ -130,9 +130,9 @@ export class GameService {
 		const updatedGame: Game = {
 			...currentGame,
 			status: GameStatus.FINISHED
-		}
+		};
 		this.localStorageService.setItem(this.storageKey, updatedGame);
-		return of(void 0);
+		return of(updatedGame);
 	}
 
 	resetPoints(): Observable<Game | null> {
