@@ -151,3 +151,13 @@ button {
 		transition: 0.25s;
 	}
 }
+
+.gap-10 {
+	gap: 10px;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

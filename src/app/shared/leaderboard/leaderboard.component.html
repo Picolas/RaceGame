@@ -5,8 +5,13 @@
 				<div class="second col-4">
 					<p  class="number">2</p>
 					<div class="row-col">
-						<p class="player-name">{{ second()?.name }}</p>
-						<p class="player-points"><small>{{ second()?.points }} points</small></p>
+						<div class="player-photo">
+							<img [src]="second()?.photo" alt="player photo" />
+						</div>
+						<div class="row gap-10 center">
+							<p class="player-name">{{ second()?.name }}</p>
+							<p class="player-points"><small>- {{ second()?.points }} points</small></p>
+						</div>
 					</div>
 				</div>
 				<div class="first col-6">
@@ -22,8 +27,13 @@
 				<div class="third col-3">
 					<p  class="number">3</p>
 					<div class="row-col">
-						<p class="player-name">{{ third()?.name }}</p>
-						<p class="player-points"><small>{{ third()?.points }} points</small></p>
+						<div class="player-photo">
+							<img [src]="third()?.photo" alt="player photo" />
+						</div>
+						<div class="row gap-10 center">
+							<p class="player-name">{{ third()?.name }}</p>
+							<p class="player-points"><small>- {{ third()?.points }} points</small></p>
+						</div>
 					</div>
 				</div>
 			</div>

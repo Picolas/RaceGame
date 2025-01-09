@@ -15,6 +15,7 @@
 	}
 
 	.leader {
+
 		.row-col {
 			flex: 1;
 			display: flex;
@@ -79,6 +80,25 @@
 				flex-direction: column;
 			}
 
+			.player-photo {
+				width: 3.6em;
+				height: 3.6rem;
+				top: -2.28rem;
+				border-radius: 50%;
+				background-color: $alternative-pink;
+				position: absolute;
+			}
+
+			.player-photo img {
+				width: 3rem;
+				height: 3rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+
 			.player-name {
 				font-size: 1.5rem;
 			}
@@ -96,6 +116,25 @@
 				font-size: 1.5rem;
 				align-items: center;
 				display: flex;
+			}
+
+			.player-photo {
+				width: 2.6em;
+				height: 2.6rem;
+				top: -1.8rem;
+				border-radius: 50%;
+				background-color: $alternative-blue;
+				position: absolute;
+			}
+
+			.player-photo img {
+				width: 2rem;
+				height: 2rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
 			}
 
 			.player-name {
