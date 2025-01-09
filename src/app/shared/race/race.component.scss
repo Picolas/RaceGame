@@ -24,8 +24,29 @@
 		background-color: $alternative-dark-blue;
 		display: flex;
 		align-items: center;
-		justify-content: center;
 		padding: $padding;
+
+		.player-info {
+			display: flex;
+			flex-direction: column;
+			line-height: 1;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+			p {
+				margin: 0;
+			}
+
+			.points {
+				background-color: $alternative-blue;
+				padding: 0.1rem 0.1rem;
+				border-radius: $rounded;
+				width: fit-content;
+				font-size: 0.7rem;
+				color: $white;
+			}
+		}
 
 		img {
 			width: 30px;

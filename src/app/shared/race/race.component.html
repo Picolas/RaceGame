@@ -2,11 +2,12 @@
 	<div class="players">
 		@for (player of players(); track player.id) {
 		<div class="player-container row">
-			<div class="player-name col-1" [ngClass]="{ 'not-last': !$last, 'border-bottom-left': $last, 'border-top-left': $first }">
+			<div class="player-name" [ngClass]="{ 'not-last': !$last, 'border-bottom-left': $last, 'border-top-left': $first }">
 				<img [src]="player.photo" alt="player photo">
-				<p>
-					{{ player.name }}
-				</p>
+				<div class="player-info">
+					<p>{{ player.name }}</p>
+					<p class="points">{{ player.points }} pts</p>
+				</div>
 			</div>
 			<div class="horse-container col-11">
 				<div class="player" [style.left.%]="player.points | playerLeftPercentage: players()!: game()" [id]="'horse-' + player.id">
