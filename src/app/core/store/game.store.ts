@@ -4,6 +4,7 @@ import { GameService } from '../../features/game/services/GameService/game.servi
 import { Game } from '../../models/Game';
 import { Player } from '../../models/Player';
 import { LocalStorageService } from '../services/LocalStorageService/local-storage.service';
+import { Router } from '@angular/router';
 
 export interface GameState {
 	currentGame: Game | null;
@@ -26,7 +27,7 @@ export const GameStore = signalStore(
 		game: computed(() => state.currentGame())
 	})),
 
-	withMethods((store, gameService = inject(GameService), localStorageService = inject(LocalStorageService)) => {
+	withMethods((store, gameService = inject(GameService), localStorageService = inject(LocalStorageService), router = inject(Router)) => {
 		effect(() => {
 			localStorageService.storageChange$.subscribe(({ key, value }) => {
 				if (key === 'currentGame') {
@@ -170,6 +171,20 @@ export const GameStore = signalStore(
 							currentGame: game,
 							loading: false
 						});
+					},
+					error: (error) => patchState(store, { error: error.message, loading: false })
+				});
+			},
+
+			deleteAndCreateNewGame() {
+				patchState(store, { loading: true });
+				gameService.deleteAndCreateNewGame().subscribe({
+					next: () => {
+						patchState(store, {
+							currentGame: null,
+							loading: false
+						});
+						router.navigate(['/create-game']);
 					},
 					error: (error) => patchState(store, { error: error.message, loading: false })
 				});

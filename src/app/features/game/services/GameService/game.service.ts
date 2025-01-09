@@ -166,4 +166,9 @@ export class GameService {
 		this.localStorageService.setItem(this.storageKey, updatedGame);
 		return of(updatedGame);
 	}
+
+	deleteAndCreateNewGame(): Observable<void> {
+		this.localStorageService.removeItem(this.storageKey);
+		return of(void 0);
+	}
 }

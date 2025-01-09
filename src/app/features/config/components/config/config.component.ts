@@ -58,4 +58,10 @@ export class ConfigComponent {
 			this.gameStore.restartGame();
 		}
 	}
+
+	onClickRecreateGame() {
+		if (confirm('Êtes-vous sûr de vouloir recréer une nouvelle partie ? Toutes les données seront perdues.')) {
+			this.gameStore.deleteAndCreateNewGame();
+		}
+	}
 }
