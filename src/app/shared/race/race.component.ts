@@ -5,6 +5,7 @@ import { NgClass } from '@angular/common';
 import { PlayerLeftPercentagePipe } from '../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
 import { ConfettiService } from '../../core/services/ConfettiService/confetti.service';
 import { GameStatus } from '../../models/GameStatus';
+import { signal } from '@angular/core';
 
 @Component({
 	selector: 'app-race',
@@ -23,14 +24,23 @@ export class RaceComponent {
 	game = input<Game | null>();
 	previousPoints: { [key: string]: number } = {};
 	isFirstRender = true;
+	private hasLaunchedFireworks = signal(false);
 
 	constructor() {
 		effect(() => {
 			const currentGame = this.game();
-			if (currentGame?.status === GameStatus.FINISHED) {
+			if (currentGame?.status === GameStatus.FINISHED && !this.hasLaunchedFireworks()) {
+				this.confettiService.clearFireworks();
 				this.confettiService.fireworks();
+				this.hasLaunchedFireworks.set(true);
+			} else if (currentGame?.status !== GameStatus.FINISHED) {
+				this.hasLaunchedFireworks.set(false);
 			}
 		});
+	}
+
+	ngOnDestroy() {
+		this.confettiService.clearFireworks();
 	}
 
 	ngOnChanges() {
