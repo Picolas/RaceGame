@@ -1,45 +1,24 @@
 <div class="player-container row" [style.order]="order()">
-	<div
-		class="player-name"
-		[class.not-last]="isNotLast()"
-		[class.border-bottom-left]="isLast()"
-		[class.border-top-left]="isFirst()"
-		[class.movement-up]="movementClass() === 'movement-up'"
-		[class.movement-down]="movementClass() === 'movement-down'"
-	>
-		<img [src]="player().photo" [alt]="player().name + ' photo'" />
-		<div class="player-info">
-			<p>{{ player().name }}</p>
-			<p class="points">{{ player().points }} pts</p>
-		</div>
-	</div>
+	<app-player-name
+		[player]="player()"
+		[isFirst]="isFirst()"
+		[isLast]="isLast()"
+		[isNotLast]="isNotLast()"
+		[movementClass]="movementClass()"
+	></app-player-name>
+
 	<div class="horse-container col-11">
-		<div
-			class="player"
-			[style.left.%]="player().points | playerLeftPercentage: allPlayers(): game()"
-			[id]="'horse-' + player().id"
-		>
-			<img
-				[src]="'./assets/img/horse/' + player().horse + '.svg'"
-				width="85"
-				[alt]="player().name + '_horse'"
-			/>
-		</div>
-		@if (isFirst()) {
-			<div
-				class="top-grass"
-				[class.border-bottom-right]="isLast()"
-				[class.border-top-right]="true"
-			></div>
-		} @else {
-			<div
-				class="grass"
-				[class.border-bottom-right]="isLast()"
-				[class.border-top-right]="false"
-			></div>
-		}
+		<app-horse-progress
+			[player]="player()"
+			[allPlayers]="allPlayers()"
+			[game]="game()"
+		></app-horse-progress>
+
+		<app-grass
+			[isFirst]="isFirst()"
+			[isLast]="isLast()"
+		></app-grass>
 	</div>
-	<div class="end-pilon">
-		<img src="./assets/img/end.svg" alt="end pilon" />
-	</div>
+
+	<app-end-pilon></app-end-pilon>
 </div>

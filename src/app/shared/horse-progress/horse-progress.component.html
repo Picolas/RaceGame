@@ -1,0 +1,11 @@
+<div
+	class="player"
+	[style.left.%]="player().points | playerLeftPercentage: allPlayers() : game()"
+	[id]="'horse-' + player().id"
+>
+	<img
+		[src]="'./assets/img/horse/' + player().horse + '.svg'"
+		width="85"
+		[alt]="player().name + '_horse'"
+	/>
+</div>

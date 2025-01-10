@@ -6,7 +6,7 @@
 				[allPlayers]="allPlayers()"
 				[game]="game()"
 				[order]="getDisplayOrder(player.id)"
-				[isFirst]="getDisplayOrder(player.id) === 0"
+				[isFirst]="$first"
 				[isLast]="$last"
 				[isNotLast]="!$last"
 				[movementClass]="getPlayerMovementClass(player.id)"

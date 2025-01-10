@@ -1,0 +1,13 @@
+@if (isFirst()) {
+	<div
+		class="top-grass"
+		[class.border-bottom-right]="isLast()"
+		[class.border-top-right]="true"
+	></div>
+} @else {
+	<div
+		class="grass"
+		[class.border-bottom-right]="isLast()"
+		[class.border-top-right]="false"
+	></div>
+}

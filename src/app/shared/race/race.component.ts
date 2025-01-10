@@ -25,7 +25,7 @@ export class RaceComponent {
 	private movementTimeouts: { [key: string]: any } = {};
 	players = input<Player[]>([]);
 	allPlayers = input<Player[]>([]);
-	game = input<Game | null>();
+	game = input<Game | null>(null);
 	previousPoints: { [key: string]: number } = {};
 	isFirstRender = true;
 

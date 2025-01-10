@@ -1,0 +1,14 @@
+<div
+	class="player-name"
+	[class.not-last]="isNotLast()"
+	[class.border-bottom-left]="isLast()"
+	[class.border-top-left]="isFirst()"
+	[class.movement-up]="movementClass() === 'movement-up'"
+	[class.movement-down]="movementClass() === 'movement-down'"
+>
+	<img [src]="player().photo" [alt]="player().name + ' photo'" />
+	<div class="player-info">
+		<p>{{ player().name }}</p>
+		<p class="points">{{ player().points }} pts</p>
+	</div>
+</div>

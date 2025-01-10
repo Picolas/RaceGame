@@ -1,0 +1,29 @@
+@use 'variables' as *;
+
+.grass-base {
+	height: 50px;
+	width: 100%;
+	background-size: contain;
+	background-repeat: repeat-x;
+	image-rendering: pixelated;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: crisp-edges;
+	transition: none;
+}
+
+.top-grass {
+	@extend .grass-base;
+	background-image: url('/assets/img/top_grass.png');
+}
+
+.grass {
+	@extend .grass-base;
+	background-image: url('/assets/img/grass.png');
+}
+
+.border-bottom-right {
+	border-bottom-right-radius: $rounded;
+}
+.border-top-right {
+	border-top-right-radius: $rounded;
+}
