@@ -4,7 +4,14 @@ import { Injectable } from '@angular/core';
 	providedIn: 'root'
 })
 export class PhotoService {
-	private readonly EXALT_DOMAINS = ['@exalt-company.com', '@exalt-it.com'];
+	private readonly EXALT_DOMAINS = [
+		'@exalt-company.com',
+		'@exalt-it.com',
+		'@hekko-agency.com',
+		'@exalt-forge.com',
+		'@exalt-value.com',
+		'@exalt-fi.com'
+	];
 
 	getPhotoUrlFromInput(input: string): string {
 		if (!input || !this.EXALT_DOMAINS.some(domain => input.includes(domain))) {
