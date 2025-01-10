@@ -4,6 +4,7 @@
 	border-radius: $rounded;
 	background-color: $light-gray;
 	padding: $padding;
+	position: relative;
 }
 
 .player-container {
@@ -120,6 +121,7 @@
 }
 
 .player {
+	z-index: 2;
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
@@ -176,4 +178,19 @@
 .players {
 	display: flex;
 	flex-direction: column;
+}
+
+.end-pilon {
+	position: absolute;
+	top: 29px;
+	right: -7px;
+	z-index: 1;
+	transform: translateY(-50%);
+	border-radius: 50%;
+
+	img {
+		width: 70px;
+		height: 50px;
+		object-fit: contain;
+	}
 }
