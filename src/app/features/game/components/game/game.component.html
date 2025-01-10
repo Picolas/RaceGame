@@ -1,4 +1,4 @@
-<div class="game-container">
+<div class="game-container" [class.container]="!layoutService.isFluid()">
   @if (showLeaderboard()) {
     <app-leaderboard [players]="sortedPlayers()"/>
   }

@@ -7,6 +7,7 @@ import { RaceComponent } from '../../../../shared/race/race.component';
 import { LeaderboardComponent } from '../../../../shared/leaderboard/leaderboard.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
+import { LayoutService } from '../../../../core/services/LayoutService/layout.service';
 
 @Component({
   selector: 'app-game',
@@ -24,6 +25,7 @@ export class GameComponent {
   private route = inject(ActivatedRoute);
   private gameStore = inject(GameStore);
   private paginationService = inject(PaginationService);
+  protected layoutService = inject(LayoutService);
 
   players = this.gameStore.players;
   game = this.gameStore.game;
