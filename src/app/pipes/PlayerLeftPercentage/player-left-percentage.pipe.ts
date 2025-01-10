@@ -18,10 +18,15 @@ export class PlayerLeftPercentagePipe implements PipeTransform {
 
 		const maxPercentage = game?.status === GameStatus.FINISHED ? RACE_PERCENTAGE_WIN : MAX_RACE_PERCENTAGE;
 
-		const minPercentagePerPoint = 3;
-		const smoothPercentage = Math.pow(points / maxPoints, 0.8) * 100;
-		const adjustedPercentage = Math.max(smoothPercentage, points * minPercentagePerPoint);
-		return Math.min(adjustedPercentage, maxPercentage);
+		// Calcul du pourcentage avec écart exponentiel
+		const basePercentage = (points / maxPoints) * maxPercentage;
+		const exponentialFactor = 1.5; // Augmente l'écart entre les positions
+		const adjustedPercentage = Math.pow(basePercentage / maxPercentage, exponentialFactor) * maxPercentage;
+
+		// Garantir un minimum d'avancement pour les scores faibles
+		const minPercentage = (points / maxPoints) * 20; // 20% de la progression linéaire
+
+		return Math.max(minPercentage, adjustedPercentage);
 	}
 
 }
