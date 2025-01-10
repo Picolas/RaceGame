@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { GameStore } from '../../../../core/store/game.store';
 import { PaginationService } from '../../../../core/services/PaginationService/pagination.service';
@@ -20,6 +20,7 @@ import { LayoutService } from '../../../../core/services/LayoutService/layout.se
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameComponent {
   private route = inject(ActivatedRoute);
