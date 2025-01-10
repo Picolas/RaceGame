@@ -1,8 +1,13 @@
 <div class="race">
 	<div class="players">
 		@for (player of players(); track player.id) {
-		<div class="player-container row">
-			<div class="player-name" [ngClass]="{ 'not-last': !$last, 'border-bottom-left': $last, 'border-top-left': $first }">
+		<div class="player-container row" [style.order]="getDisplayOrder(player.id)">
+			<div class="player-name"
+				 [class.not-last]="!$last"
+				 [class.border-bottom-left]="$last"
+				 [class.border-top-left]="getDisplayOrder(player.id) === 0"
+				 [class.movement-up]="getPlayerMovementClass(player.id) === 'movement-up'"
+				 [class.movement-down]="getPlayerMovementClass(player.id) === 'movement-down'">
 				<img [src]="player.photo" alt="player photo">
 				<div class="player-info">
 					<p>{{ player.name }}</p>
@@ -13,10 +18,10 @@
 				<div class="player" [style.left.%]="player.points | playerLeftPercentage: allPlayers()!: game()" [id]="'horse-' + player.id">
 					<img src="./assets/img/horse/{{ player.horse }}.svg" width="85">
 				</div>
-				@if ($first) {
-					<div class="top-grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': $first }"></div>
+				@if (getDisplayOrder(player.id) === 0) {
+					<div class="top-grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': true }"></div>
 				} @else {
-					<div class="grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': $first }"></div>
+					<div class="grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': false }"></div>
 				}
 			</div>
 		</div>
