@@ -20,7 +20,7 @@ import { LayoutService } from '../../../../core/services/LayoutService/layout.se
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameComponent {
   private route = inject(ActivatedRoute);
