@@ -1,18 +1,16 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input } from '@angular/core';
 import { Player } from '../../models/Player';
 import { Game } from '../../models/Game';
-import { NgClass } from '@angular/common';
-import { PlayerLeftPercentagePipe } from '../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
 import { ConfettiService } from '../../core/services/ConfettiService/confetti.service';
 import { GameStatus } from '../../models/GameStatus';
 import { signal } from '@angular/core';
+import { RaceTrackComponent } from '../race-track/race-track.component';
 
 @Component({
 	selector: 'app-race',
 	standalone: true,
 	imports: [
-		NgClass,
-		PlayerLeftPercentagePipe
+		RaceTrackComponent,
 	],
 	templateUrl: './race.component.html',
 	styleUrl: './race.component.scss',
@@ -20,16 +18,17 @@ import { signal } from '@angular/core';
 })
 export class RaceComponent {
 	private confettiService = inject(ConfettiService);
-	players = input<Player[]>([]);
-	allPlayers = input<Player[]>([]);
-	game = input<Game | null>();
-	previousPoints: { [key: string]: number } = {};
-	isFirstRender = true;
 	private hasLaunchedFireworks = signal(false);
 	private sortedPlayers = signal<Player[]>([]);
 	private isAnimating = signal(false);
 	private playerMovements = signal<{ [key: string]: { type: 'up' | 'down' | null, timestamp: number } }>({});
 	private movementTimeouts: { [key: string]: any } = {};
+	players = input<Player[]>([]);
+	allPlayers = input<Player[]>([]);
+	game = input<Game | null>();
+	previousPoints: { [key: string]: number } = {};
+	isFirstRender = true;
+
 
 	constructor() {
 		effect(() => {

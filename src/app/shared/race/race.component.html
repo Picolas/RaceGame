@@ -1,33 +1,16 @@
 <div class="race">
 	<div class="players">
 		@for (player of players(); track player.id) {
-		<div class="player-container row" [style.order]="getDisplayOrder(player.id)">
-			<div class="player-name"
-				 [class.not-last]="!$last"
-				 [class.border-bottom-left]="$last"
-				 [class.border-top-left]="getDisplayOrder(player.id) === 0"
-				 [class.movement-up]="getPlayerMovementClass(player.id) === 'movement-up'"
-				 [class.movement-down]="getPlayerMovementClass(player.id) === 'movement-down'">
-				<img [src]="player.photo" alt="player photo">
-				<div class="player-info">
-					<p>{{ player.name }}</p>
-					<p class="points">{{ player.points }} pts</p>
-				</div>
-			</div>
-			<div class="horse-container col-11">
-				<div class="player" [style.left.%]="player.points | playerLeftPercentage: allPlayers()!: game()" [id]="'horse-' + player.id">
-					<img src="./assets/img/horse/{{ player.horse }}.svg" width="85" [alt]="player.name + '_horse'">
-				</div>
-				@if (getDisplayOrder(player.id) === 0) {
-					<div class="top-grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': true }"></div>
-				} @else {
-					<div class="grass" [ngClass]="{ 'border-bottom-right': $last, 'border-top-right': false }"></div>
-				}
-			</div>
-			<div class="end-pilon">
-				<img src="./assets/img/end.svg" alt="end pilon">
-			</div>
-		</div>
+			<app-race-track
+				[player]="player"
+				[allPlayers]="allPlayers()"
+				[game]="game()"
+				[order]="getDisplayOrder(player.id)"
+				[isFirst]="getDisplayOrder(player.id) === 0"
+				[isLast]="$last"
+				[isNotLast]="!$last"
+				[movementClass]="getPlayerMovementClass(player.id)"
+			/>
 		}
 	</div>
 </div>
