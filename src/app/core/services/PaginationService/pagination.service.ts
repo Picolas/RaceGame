@@ -10,13 +10,15 @@ export class PaginationService {
 	private readonly OTHER_PAGES_SIZE = PLAYERS_PER_PAGE;
 
 	getPagedPlayers(players: Player[], page: number = 1): Player[] {
+		const sortedPlayers = [...players].sort((a, b) => b.points - a.points);
+
 		if (page === 1) {
-			return players.slice(0, this.FIRST_PAGE_SIZE);
+			return sortedPlayers.slice(0, this.FIRST_PAGE_SIZE);
 		}
 
 		const start = this.FIRST_PAGE_SIZE + (page - 2) * this.OTHER_PAGES_SIZE;
 		const end = start + this.OTHER_PAGES_SIZE;
-		return players.slice(start, end);
+		return sortedPlayers.slice(start, end);
 	}
 
 	getTotalPages(players: Player[]): number {
