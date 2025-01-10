@@ -22,6 +22,43 @@
 	align-items: center;
 	padding: $padding;
 
+	&.not-last {
+		border-bottom: 2.5px solid $alternative-blue;
+	}
+
+	.position-badge {
+		color: $black;
+		font-weight: bold;
+	}
+
+	&.first {
+		@extend .position-badge;
+		background-color: $alternative-yellow;
+	}
+
+	&.second {
+		@extend .position-badge;
+		background-color: $alternative-pink;
+	}
+
+	&.third {
+		@extend .position-badge;
+		background-color: $alternative-blue;
+	}
+
+	&.movement-up,
+	&.movement-down {
+		transition: background-color 0.2s ease-in-out;
+	}
+
+	&.movement-up {
+		background-color: $blue;
+	}
+
+	&.movement-down {
+		background-color: $alternative-pink;
+	}
+
 	.player-info {
 		display: flex;
 		flex-direction: column;
@@ -59,52 +96,17 @@
 		width: inherit;
 		text-align: left;
 	}
-
-	&.not-last {
-		border-bottom: 2.5px solid $alternative-blue;
-	}
-
-	.first {
-		background-color: $alternative-yellow;
-		color: $black;
-		font-weight: bold;
-	}
-
-	.second {
-		background-color: $alternative-pink;
-		color: $black;
-		font-weight: bold;
-	}
-
-	.third {
-		background-color: $alternative-blue;
-		color: $black;
-		font-weight: bold;
-	}
-
-	&.movement-up {
-		background-color: $blue;
-		transition: background-color 0.2s ease-in-out;
-	}
-
-	&.movement-down {
-		background-color: $alternative-pink;
-		transition: background-color 0.2s ease-in-out;
-	}
 }
 
 .border-top-left {
 	border-top-left-radius: $rounded;
 }
-
 .border-bottom-left {
 	border-bottom-left-radius: $rounded;
 }
-
 .border-bottom-right {
 	border-bottom-right-radius: $rounded;
 }
-
 .border-top-right {
 	border-top-right-radius: $rounded;
 }
@@ -134,43 +136,33 @@
 	0% {
 		transform: translateY(0);
 	}
-
 	50% {
 		transform: translateY(-5px);
 	}
-
 	100% {
 		transform: translateY(0);
 	}
 }
 
-.top-grass {
+.grass-base {
 	height: 50px;
 	width: 100%;
 	background-size: contain;
 	background-repeat: repeat-x;
-	background-image: url('/assets/img/top_grass.png');
 	image-rendering: pixelated;
 	image-rendering: -moz-crisp-edges;
 	image-rendering: crisp-edges;
 	transition: none;
+}
+
+.top-grass {
+	@extend .grass-base;
+	background-image: url('/assets/img/top_grass.png');
 }
 
 .grass {
-	height: 50px;
-	width: 100%;
-	background-size: contain;
-	background-repeat: repeat-x;
+	@extend .grass-base;
 	background-image: url('/assets/img/grass.png');
-	image-rendering: pixelated;
-	image-rendering: -moz-crisp-edges;
-	image-rendering: crisp-edges;
-	transition: none;
-}
-
-.players {
-	display: flex;
-	flex-direction: column;
 }
 
 .end-pilon {
