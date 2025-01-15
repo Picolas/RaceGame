@@ -1,5 +1,32 @@
 <div class="container mt-20">
 	<div class="config-game-container">
+		<h2 class="mb-10">Configurer la pagination</h2>
+		<div class="pagination-config mb-10">
+			<form [formGroup]="paginationForm" (ngSubmit)="onPaginationSubmit()" class="pagination-form">
+				<div class="form-group">
+					<label for="firstPageSize">Nombre de joueurs sur la première page :</label>
+					<input
+						id="firstPageSize"
+						type="number"
+						formControlName="firstPageSize"
+						min="1"
+					/>
+				</div>
+				<div class="form-group">
+					<label for="otherPagesSize">Nombre de joueurs sur les autres pages :</label>
+					<input
+						id="otherPagesSize"
+						type="number"
+						formControlName="otherPagesSize"
+						min="1"
+					/>
+				</div>
+				<button type="submit" [disabled]="paginationForm.invalid">
+					Appliquer
+				</button>
+			</form>
+		</div>
+
 		<h2 class="mb-10">Configurer la partie</h2>
 		<div class="players-list">
 			<h3 class="mb-10">Joueurs</h3>

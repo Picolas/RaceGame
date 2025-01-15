@@ -45,3 +45,64 @@
 .remove {
 	background-color: $alternative-pink;
 }
+
+.pagination-config {
+	background-color: $light-gray;
+	border-radius: $rounded;
+	padding: $padding;
+	margin-bottom: 1rem;
+
+	h3 {
+		margin-bottom: 1rem;
+	}
+
+	.pagination-form {
+		display: flex;
+		flex-direction: column;
+		gap: $padding-small;
+
+		.form-group {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+
+			label {
+				font-weight: 500;
+			}
+
+			input {
+				width: 100px;
+				height: 35px;
+				border-radius: $rounded;
+				border: 1px solid $alternative-blue;
+				padding: 0 0.5rem;
+				font-size: 1rem;
+
+				&:focus {
+					outline: none;
+					border-color: $alternative-dark-blue;
+				}
+			}
+		}
+
+		button {
+			width: fit-content;
+			height: 35px;
+			padding: 0 1rem;
+			border-radius: $rounded;
+			background-color: $alternative-blue;
+			color: $white;
+			font-weight: 500;
+			transition: opacity 0.2s ease-in-out;
+
+			&:disabled {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+
+			&:not(:disabled):hover {
+				opacity: 0.9;
+			}
+		}
+	}
+}
