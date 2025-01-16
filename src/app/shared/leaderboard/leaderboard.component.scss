@@ -25,6 +25,13 @@
 			position: relative;
 		}
 
+		.name {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 150px;
+		}
+
 		.first {
 			background-color: $alternative-yellow;
 			height: 7.188rem;
@@ -60,7 +67,7 @@
 				display: flex;
 			}
 
-			.player-name {
+			.name {
 				font-size: 1.5rem;
 			}
 		}
@@ -101,7 +108,7 @@
 				object-fit: cover;
 			}
 
-			.player-name {
+			.name {
 				font-size: 1.5rem;
 			}
 		}
@@ -140,7 +147,7 @@
 				object-fit: cover;
 			}
 
-			.player-name {
+			.name {
 				font-size: 1rem;
 			}
 		}

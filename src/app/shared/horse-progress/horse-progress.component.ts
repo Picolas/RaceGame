@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { PlayerLeftPercentagePipe } from '../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
-import { Player } from '../../models/Player';
-import { Game } from '../../models/Game';
+import { BasePlayer } from '../../models/BasePlayer';
+import { Game } from '../../models/BaseGame';
 
 @Component({
 	selector: 'app-horse-progress',
@@ -11,7 +11,7 @@ import { Game } from '../../models/Game';
 	styleUrls: ['./horse-progress.component.scss'],
 })
 export class HorseProgressComponent {
-	player = input.required<Player>();
-	allPlayers = input.required<Player[]>();
+	player = input.required<BasePlayer>();
+	allPlayers = input.required<BasePlayer[]>();
 	game = input.required<Game | null>();
 }

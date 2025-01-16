@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Player } from '../../models/Player';
 import { MAX_RACE_PERCENTAGE, RACE_PERCENTAGE_WIN } from '../../core/config/config';
-import { Game } from '../../models/Game';
 import { GameStatus } from '../../models/GameStatus';
+import { BasePlayer } from '../../models/BasePlayer';
+import { Game } from '../../models/BaseGame';
 
 @Pipe({
 	name: 'playerLeftPercentage'
 })
 export class PlayerLeftPercentagePipe implements PipeTransform {
 
-	transform(points: number, players: Player[], game?: Game | null): number {
+	transform(points: number, players: BasePlayer[], game?: Game | null): number {
 		const maxPoints = players.length ? Math.max(...players.map(player => player.points)) : 100;
 
 		if (maxPoints === 0) {

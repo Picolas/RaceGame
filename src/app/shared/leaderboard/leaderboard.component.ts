@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { Player } from '../../models/Player';
+import { BasePlayer } from '../../models/BasePlayer';
 
 @Component({
 	selector: 'app-leaderboard',
@@ -8,7 +8,7 @@ import { Player } from '../../models/Player';
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeaderboardComponent {
-	players = input<Player[]>([]);
+	players = input<BasePlayer[]>([]);
 
 	readonly first = computed(() => this.players()?.length > 0 ? this.players()[0] : null);
 	readonly second = computed(() => this.players()?.length > 1 ? this.players()[1] : null);

@@ -1,0 +1,60 @@
+@if (visible()) {
+	<div class="modal-overlay" (click)="hide()">
+		<div class="modal" (click)="$event.stopPropagation()">
+			<div class="modal-header">
+				<h3>Ajouter une nouvelle équipe</h3>
+			</div>
+
+			<div class="modal-content">
+				<form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
+					<div class="form-group">
+						<label for="name">Nom de l'équipe :</label>
+						<input id="name" type="text" formControlName="name" placeholder="Nom de l'équipe"/>
+					</div>
+
+					<div class="form-group">
+						<label for="color">Couleur de l'équipe :</label>
+						<input id="color" type="color" formControlName="color"/>
+					</div>
+
+					<div formGroupName="coach">
+						<h4>Coach</h4>
+						<div class="form-group">
+							<label for="coachName">Nom du coach :</label>
+							<input id="coachName" type="text" formControlName="name" placeholder="Nom du coach"/>
+						</div>
+
+						<div class="form-group">
+							<label for="entity">Entité :</label>
+							<select id="entity" formControlName="entity">
+								<option value="">Sélectionner une entité</option>
+								@for (entity of entities; track entity) {
+									<option [value]="entity">{{ entity }}</option>
+								}
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="hasPhoto">
+								<input id="hasPhoto" type="checkbox" formControlName="hasPhoto"/>
+								Ajouter une photo ?
+							</label>
+						</div>
+
+						@if (teamForm.get('coach.hasPhoto')?.value) {
+							<div class="form-group">
+								<label for="photo">URL de l'Image :</label>
+								<input id="photo" type="url" formControlName="photo" placeholder="https://example.com/image.jpg"/>
+							</div>
+						}
+					</div>
+
+					<div class="modal-actions">
+						<button type="button" class="cancel" (click)="hide()">Annuler</button>
+						<button type="submit" class="submit" [disabled]="teamForm.invalid">Ajouter</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+}

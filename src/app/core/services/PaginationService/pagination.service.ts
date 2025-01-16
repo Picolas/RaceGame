@@ -1,7 +1,7 @@
 import { Injectable, signal, inject } from '@angular/core';
-import { Player } from '../../../models/Player';
 import { PLAYERS_FIRST_PAGE, PLAYERS_PER_PAGE } from '../../config/config';
-import { LocalStorageService } from '../../services/LocalStorageService/local-storage.service';
+import { LocalStorageService } from '../LocalStorageService/local-storage.service';
+import { BasePlayer } from '../../../models/BasePlayer';
 
 @Injectable({
 	providedIn: 'root'
@@ -39,7 +39,7 @@ export class PaginationService {
 		this.localStorageService.setItem('otherPagesSize', otherPages);
 	}
 
-	getPagedPlayers(players: Player[], page: number = 1): Player[] {
+	getPagedPlayers(players: BasePlayer[], page: number = 1): BasePlayer[] {
 		const sortedPlayers = [...players].sort((a, b) => b.points - a.points);
 
 		if (page === 1) {
@@ -51,7 +51,7 @@ export class PaginationService {
 		return sortedPlayers.slice(start, end);
 	}
 
-	getTotalPages(players: Player[]): number {
+	getTotalPages(players: BasePlayer[]): number {
 		if (players.length <= this.firstPageSize()) {
 			return 1;
 		}

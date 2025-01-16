@@ -106,3 +106,52 @@
 		}
 	}
 }
+
+.team-container {
+	background-color: $light-gray;
+	border-radius: $rounded;
+	padding: $padding;
+	display: flex;
+	flex-direction: column;
+	gap: $padding;
+	margin-bottom: $padding;
+
+	.team-header {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: $padding;
+
+		.coach {
+			padding: $padding-small;
+			border-radius: $rounded;
+			width: fit-content;
+			font-size: 0.85rem;
+			color: $white;
+		}
+
+		.entity {
+			background-color: $alternative-pink;
+			padding: $padding-small;
+			border-radius: $rounded;
+			width: fit-content;
+			font-size: 0.85rem;
+			color: $white;
+		}
+
+		.points {
+			background-color: $alternative-blue;
+			padding: $padding-small;
+			border-radius: $rounded;
+			width: fit-content;
+			font-size: 0.85rem;
+			color: $white;
+		}
+	}
+}
+
+.gestion-group {
+	padding: $padding;
+	background-color: $light-gray;
+	border-radius: $rounded;
+}

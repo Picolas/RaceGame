@@ -1,87 +1,141 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Game } from '../../../../models/Game';
-import { GameStatus } from '../../../../models/GameStatus';
-import { NgForOf, NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl } from '@angular/forms';
 import { GameStore } from '../../../../core/store/game.store';
-import { PhotoService } from '../../../../core/services/PhotoService/photo.service';
+import { Router } from '@angular/router';
+import { GameType } from '../../../../models/GameType';
+import { Entity } from '../../../../models/Entity';
 
 @Component({
 	selector: 'app-create',
-	imports: [
-		FormsModule,
-		ReactiveFormsModule,
-		NgIf,
-		NgForOf
-	],
+	standalone: true,
+	imports: [ReactiveFormsModule],
 	templateUrl: './create.component.html',
 	styleUrl: './create.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateComponent implements OnInit {
-	private fb: FormBuilder = inject(FormBuilder);
+export class CreateComponent {
 	private gameStore = inject(GameStore);
-	private router: Router = inject(Router);
-	private photoService = inject(PhotoService);
-	gameForm!: FormGroup;
+	private fb = inject(FormBuilder);
+	private router = inject(Router);
 
-	ngOnInit() {
-		this.gameForm = this.fb.group({
-			name: ['', [Validators.minLength(3)]],
-			players: this.fb.array([
-				this.createPlayerFormGroup()
-			])
-		})
-	}
+	GameType = GameType;
+	entities = Object.values(Entity);
 
-	createPlayerFormGroup(): FormGroup {
-		return this.fb.group({
-			name: ['', Validators.required],
-			hasPhoto: [false],
-			photo: ['', []]
-		});
-	}
+	gameForm: FormGroup = this.fb.group({
+		name: ['Challenge eXalt', [Validators.required]],
+		gameType: [GameType.SOLO_PLAYERS, [Validators.required]],
+		players: this.fb.array([this.createPlayerForm()]),
+		teams: this.fb.array([])
+	});
 
-	get players(): FormArray {
+	get players() {
 		return this.gameForm.get('players') as FormArray;
 	}
 
-	addPlayer(): void {
-		this.players.push(this.createPlayerFormGroup());
+	get teams() {
+		return this.gameForm.get('teams') as FormArray;
 	}
 
-	removePlayer(index: number): void {
-		if (this.players.length > 1) {
-			this.players.removeAt(index);
-		}
+	createPlayerForm() {
+		return this.fb.group({
+			name: ['', [Validators.required]],
+			hasPhoto: [false],
+			photo: [''],
+			points: [0]
+		});
 	}
 
-	onSubmit(): void {
-		console.log(this.gameForm.value);
-		if (this.gameForm.valid) {
-			const players = this.players.value.map((player: { hasPhoto: boolean; photo: string; name: string }) => {
-				const photo = player.hasPhoto ?
-					(this.photoService.getPhotoUrlFromInput(player.photo) || '/assets/img/profile_picture.png') :
-					'/assets/img/profile_picture.png';
+	createTeamForm(): FormGroup {
+		return this.fb.group({
+			name: ['', [Validators.required]],
+			color: ['#000000', [Validators.required]],
+			coach: this.fb.group({
+				name: ['', [Validators.required]],
+				entity: ['', [Validators.required]],
+				hasPhoto: [false],
+				photo: ['']
+			}),
+			players: this.fb.array([this.createPlayerForm()])
+		});
+	}
 
-				return {
-					...player,
-					photo: photo,
-					points: 0
-				};
-			});
-
-			const game: Partial<Game> = {
-				name: this.gameForm.value.name,
-				players: players,
-				status: GameStatus.CREATED,
-			};
-			this.gameStore.createOrResetGame({ ...game });
-
-			this.router.navigate(['game']);
+	addPlayer() {
+		if (this.gameForm.get('gameType')?.value === GameType.SOLO_PLAYERS) {
+			this.players.push(this.createPlayerForm());
 		} else {
-			this.gameForm.markAllAsTouched();
+			const selectedTeam = this.teams.at(-1);
+			if (selectedTeam) {
+				(selectedTeam.get('players') as FormArray).push(this.createPlayerForm());
+			}
 		}
+	}
+
+	addTeam() {
+		this.teams.push(this.createTeamForm());
+	}
+
+	removePlayer(index: number, teamIndex?: number) {
+		if (this.gameForm.get('gameType')?.value === GameType.SOLO_PLAYERS) {
+			if (this.players.length > 1) {
+				this.players.removeAt(index);
+			}
+		} else if (teamIndex !== undefined) {
+			const teamPlayers = this.teams.at(teamIndex).get('players') as FormArray;
+			if (teamPlayers.length > 1) {
+				teamPlayers.removeAt(index);
+			}
+		}
+	}
+
+	removeTeam(index: number) {
+		if (this.teams.length > 1) {
+			this.teams.removeAt(index);
+		}
+	}
+
+	onSubmit() {
+		if (this.gameForm.valid) {
+			const formValue = this.gameForm.value;
+
+			if (formValue.gameType === GameType.SOLO_PLAYERS) {
+				formValue.teams = null;
+			} else {
+				formValue.players = null;
+			}
+
+			this.gameStore.createOrResetGame(formValue);
+			this.router.navigate(['/config']);
+		}
+	}
+
+	onGameTypeChange() {
+		const gameType = this.gameForm.get('gameType')?.value;
+		if (gameType === GameType.SOLO_PLAYERS) {
+			this.teams.clear();
+			if (this.players.length === 0) {
+				this.players.push(this.createPlayerForm());
+			}
+		} else {
+			this.players.clear();
+			if (this.teams.length === 0) {
+				this.teams.push(this.createTeamForm());
+			}
+		}
+	}
+
+	getPlayersControls() {
+		return (this.gameForm.get('players') as FormArray).controls;
+	}
+
+	getTeamsControls() {
+		return (this.gameForm.get('teams') as FormArray).controls;
+	}
+
+	getTeamPlayersControls(team: AbstractControl) {
+		return (team.get('players') as FormArray).controls;
+	}
+
+	getTeamIndex(team: AbstractControl): number {
+		return this.teams.controls.indexOf(team);
 	}
 }

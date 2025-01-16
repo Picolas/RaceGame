@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Player } from '../../models/Player';
+import { BasePlayer } from '../../models/BasePlayer';
 
 @Component({
   selector: 'app-player-name',
@@ -8,7 +8,7 @@ import { Player } from '../../models/Player';
   styleUrl: './player-name.component.scss'
 })
 export class PlayerNameComponent {
-	player = input.required<Player>();
+	player = input.required<BasePlayer>();
 	isFirst = input.required<boolean>();
 	isLast = input.required<boolean>();
 	isNotLast = input.required<boolean>();

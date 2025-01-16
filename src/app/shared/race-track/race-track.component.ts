@@ -1,11 +1,10 @@
 import { Component, input } from '@angular/core';
-import { Player } from '../../models/Player';
-import { Game } from '../../models/Game';
-import { PlayerLeftPercentagePipe } from '../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
 import { PlayerNameComponent } from '../player-name/player-name.component';
 import { HorseProgressComponent } from '../horse-progress/horse-progress.component';
 import { GrassComponent } from '../grass/grass.component';
 import { EndPilonComponent } from '../end-pilon/end-pilon.component';
+import { BasePlayer } from '../../models/BasePlayer';
+import { Game } from '../../models/BaseGame';
 
 @Component({
 	selector: 'app-race-track',
@@ -15,8 +14,8 @@ import { EndPilonComponent } from '../end-pilon/end-pilon.component';
 	styleUrl: './race-track.component.scss'
 })
 export class RaceTrackComponent {
-	player = input.required<Player>();
-	allPlayers = input.required<Player[]>();
+	player = input.required<BasePlayer>();
+	allPlayers = input.required<BasePlayer[]>();
 	game = input<Game | null>(null);
 	order = input.required<number>();
 	isFirst = input.required<boolean>();

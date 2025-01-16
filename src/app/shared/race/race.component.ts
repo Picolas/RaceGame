@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, effect, inject, input } from '@angular/core';
-import { Player } from '../../models/Player';
-import { Game } from '../../models/Game';
 import { ConfettiService } from '../../core/services/ConfettiService/confetti.service';
 import { GameStatus } from '../../models/GameStatus';
 import { signal } from '@angular/core';
 import { RaceTrackComponent } from '../race-track/race-track.component';
+import { BasePlayer } from '../../models/BasePlayer';
+import { Game } from '../../models/BaseGame';
 
 @Component({
 	selector: 'app-race',
@@ -19,12 +19,12 @@ import { RaceTrackComponent } from '../race-track/race-track.component';
 export class RaceComponent {
 	private confettiService = inject(ConfettiService);
 	private hasLaunchedFireworks = signal(false);
-	private sortedPlayers = signal<Player[]>([]);
+	private sortedPlayers = signal<BasePlayer[]>([]);
 	private isAnimating = signal(false);
 	private playerMovements = signal<{ [key: string]: { type: 'up' | 'down' | null, timestamp: number } }>({});
 	private movementTimeouts: { [key: string]: any } = {};
-	players = input<Player[]>([]);
-	allPlayers = input<Player[]>([]);
+	players = input<BasePlayer[]>([]);
+	allPlayers = input<BasePlayer[]>([]);
 	game = input<Game | null>(null);
 	previousPoints: { [key: string]: number } = {};
 	isFirstRender = true;
@@ -145,10 +145,13 @@ export class RaceComponent {
 
 		// Vérifier si 2 secondes se sont écoulées depuis le début de l'animation
 		if (Date.now() - movement.timestamp >= 2000) {
-			this.playerMovements.update(state => ({
-				...state,
-				[playerId]: { type: null, timestamp: 0 }
-			}));
+			// Au lieu de mettre à jour le signal ici, on programme une mise à jour
+			setTimeout(() => {
+				this.playerMovements.update(state => ({
+					...state,
+					[playerId]: { type: null, timestamp: 0 }
+				}));
+			}, 0);
 			return '';
 		}
 
