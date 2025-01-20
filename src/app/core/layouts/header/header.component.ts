@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import {MenuItem} from 'primeng/api';
 import {RouterLink} from '@angular/router';
 import { LayoutService } from '../../services/LayoutService/layout.service';
 import { GameStore } from '../../store/game.store';

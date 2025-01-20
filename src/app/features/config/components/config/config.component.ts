@@ -1,6 +1,5 @@
 import { Component, ViewChild, inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { GameStore } from '../../../../core/store/game.store';
 import { PaginationService } from '../../../../core/services/PaginationService/pagination.service';
 import { AddPlayerModalComponent } from '../../../../shared/add-player-modal/add-player-modal.component';

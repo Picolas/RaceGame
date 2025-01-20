@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { GameStore } from '../../../../core/store/game.store';
 import { PaginationService } from '../../../../core/services/PaginationService/pagination.service';
