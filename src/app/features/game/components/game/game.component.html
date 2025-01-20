@@ -1,9 +1,8 @@
 <div class="game-container mx-auto" [class.container]="!layoutService.isFluid()">
 
 	@if (game()) {
-		<app-game-stats [stats]="stats()" />
-
-	@if (showLeaderboard()) {
+		@if (showLeaderboard()) {
+			<app-game-stats [stats]="stats()" />
 	  @if (layoutService.showTeamLeaderboard() && teams().length > 0) {
 		<app-team-leaderboard [teams]="teams()" />
 	  } @else {
