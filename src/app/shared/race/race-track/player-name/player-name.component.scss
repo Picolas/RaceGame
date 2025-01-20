@@ -18,9 +18,11 @@
 	&.movement-down {
 		transition: background-color 0.2s ease-in-out;
 	}
+
 	&.movement-up {
 		background-color: $blue;
 	}
+
 	&.movement-down {
 		background-color: $alternative-pink;
 	}
@@ -29,14 +31,17 @@
 		color: $black;
 		font-weight: bold;
 	}
+
 	&.first {
 		@extend .position-badge;
 		background-color: $alternative-yellow;
 	}
+
 	&.second {
 		@extend .position-badge;
 		background-color: $alternative-pink;
 	}
+
 	&.third {
 		@extend .position-badge;
 		background-color: $alternative-blue;
@@ -56,6 +61,7 @@
 			overflow: hidden;
 			text-overflow: ellipsis;
 		}
+
 		.points {
 			background-color: $alternative-blue;
 			padding: 0.1rem 0.1rem;
@@ -81,4 +87,10 @@
 
 .border-top-left {
 	border-top-left-radius: $rounded;
+}
+
+@media (min-width: 1280px) {
+	.player-name {
+		width: 325px;
+	}
 }
