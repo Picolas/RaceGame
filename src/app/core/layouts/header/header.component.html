@@ -1,16 +1,56 @@
-<header>
-  <div class="navbar container">
-    <div class="logo">
-      <a [routerLink]="['/game']">eXalt Race</a>
+<header class="bg-gray-100">
+  <div class="navbar container mx-auto">
+    <div class="navbar-start w-1/4">
+      <a [routerLink]="['/game']" class="text-xl logo">eXalt Race</a>
     </div>
-    <div class="menu">
-      <a [routerLink]="['/game']">Game</a>
-      <a [routerLink]="['/config']">Configuration</a>
-		@if (game()?.gameType === GameType.TEAMS) {
-		<a (click)="toggleTeamLeaderboard()">{{ layoutService.showTeamLeaderboard() ? 'Cacher le leaderboard en équipe' : 'Afficher le leaderboard en équipe' }}</a>
-		<a (click)="toggleTeamRace()">{{ layoutService.showTeamRace() ? 'Cacher la course en équipe' : 'Afficher la course en équipe' }}</a>
-		}
-		<a (click)="toggleFluid()"><i class="pi" [class.pi-window-maximize]="!layoutService.isFluid()" [class.pi-window-minimize]="layoutService.isFluid()"></i></a>
+
+    <div class="navbar-end w-3/4">
+      <ul class="menu menu-horizontal px-1 hidden lg:flex">
+        <li><a [routerLink]="['/game']">Game 🏁</a></li>
+        @if (game()?.gameType === GameType.TEAMS) {
+          <li><a (click)="toggleTeamLeaderboard()">
+            {{ layoutService.showTeamLeaderboard() ? 'Players' : 'Equipe' }} 🏆
+          </a></li>
+          <li><a (click)="toggleTeamRace()">
+            Race Equipe {{ layoutService.showTeamRace() ? '🟢' : '🔴' }}
+          </a></li>
+        }
+		  <li>
+			  <a [routerLink]="['/config']" class="flex gap-2">
+				  Config 🛠️
+			  </a>
+		  </li>
+        <li><a (click)="toggleFluid()">
+          📐
+        </a></li>
+      </ul>
+
+      <div class="dropdown dropdown-end lg:hidden">
+        <div tabindex="0" role="button" class="btn btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" />
+          </svg>
+        </div>
+        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a [routerLink]="['/game']">Game 🏁</a></li>
+          @if (game()?.gameType === GameType.TEAMS) {
+            <li><a (click)="toggleTeamLeaderboard()">
+              {{ layoutService.showTeamLeaderboard() ? 'Players' : 'Equipe' }} 🏆
+            </a></li>
+            <li><a (click)="toggleTeamRace()">
+              Race Equipe {{ layoutService.showTeamRace() ? '🟢' : '🔴' }}
+            </a></li>
+          }
+					<li>
+						<a [routerLink]="['/config']" class="flex gap-2">
+							Config 🛠️
+						</a>
+					</li>
+          <li><a (click)="toggleFluid()">
+            📐
+          </a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </header>

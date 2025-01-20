@@ -11,6 +11,11 @@ $alternative-dark-blue: #37358A;
 $alternative-pink: #E8318A;
 $alternative-yellow: #FFDC00;
 
+$info: #465EA8;
+$succes: #46a874;
+$warning: #d7922c;
+$error: #d23f3f;
+
 $black-gray: #1a1a1a;
 $gray: #2f2f2f;
 $black: #000000;
@@ -22,19 +27,6 @@ $breakpoint-mobile: 768px;
 $rounded: 5px;
 $padding: 10px;
 $padding-small: 5px;
-
-.container {
-	max-width: $container-max-width;
-	padding-left: $container-padding;
-	padding-right: $container-padding;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.container-fluid {
-	padding-left: $container-padding;
-	padding-right: $container-padding;
-}
 
 .mt-10 {
 	margin-top: 10px;
@@ -64,36 +56,47 @@ $padding-small: 5px;
 .col-1 {
 	flex: 1;
 }
+
 .col-2 {
 	flex: 2;
 }
+
 .col-3 {
 	flex: 3;
 }
+
 .col-4 {
 	flex: 4;
 }
+
 .col-5 {
 	flex: 5;
 }
+
 .col-6 {
 	flex: 6;
 }
+
 .col-7 {
 	flex: 7;
 }
+
 .col-8 {
 	flex: 8;
 }
+
 .col-9 {
 	flex: 9;
 }
+
 .col-10 {
 	flex: 10;
 }
+
 .col-11 {
 	flex: 11;
 }
+
 .col-12 {
 	flex: 12;
 }
@@ -105,41 +108,6 @@ $padding-small: 5px;
 	margin-top: $padding;
 	margin-bottom: $padding;
 	border-radius: $rounded;
-}
-
-.form-group {
-	margin-top: $padding;
-	margin-bottom: $padding;
-	display: flex;
-	flex-direction: column;
-
-	input {
-		padding: 5px;
-		border-radius: $rounded;
-		border: 1px solid $alternative-dark-blue;
-		margin-top: 5px;
-		margin-bottom: 5px;
-	}
-
-	label {
-		margin-bottom: 5px;
-	}
-}
-
-button {
-	padding: $padding;
-	border-radius: $rounded;
-	border: none;
-	background-color: $black-gray;
-	color: $white;
-	cursor: pointer;
-	transition: 0.1s;
-
-	&:hover {
-		background-color: $gray;
-		color: $white;
-		transition: 0.25s;
-	}
 }
 
 .gap-10 {

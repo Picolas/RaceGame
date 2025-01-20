@@ -1,157 +1,243 @@
-<div class="container mt-20 mb-20">
-	<div class="create-game-container">
-		<div class="create-game-content">
-			<h1>Créer une nouvelle partie</h1>
+<div class="container mt-20 mb-20 mx-auto">
+	<div class="card bg-gray-100 rounded">
+		<div class="card-body p-2.5">
+			<h1 class="card-title text-2xl mb-6">Créer une nouvelle partie</h1>
 			<form [formGroup]="gameForm" (ngSubmit)="onSubmit()">
-				<div class="game-settings">
-					<div class="form-group">
-						<label for="name">Nom de la partie :</label>
-						<input id="name" type="text" formControlName="name" placeholder="Nom de la partie" />
+				<div class="space-y-4">
+					<div class="form-control w-full">
+						<label class="label">
+							<span class="label-text">Nom de la partie</span>
+						</label>
+						<input type="text" formControlName="name" placeholder="Nom de la partie" class="input input-bordered w-full" />
 					</div>
 
-					<div class="form-group">
-						<label for="gameType">Type de partie :</label>
-						<select id="gameType" formControlName="gameType" (change)="onGameTypeChange()">
+					<div class="form-control w-full">
+						<label class="label">
+							<span class="label-text">Type de partie</span>
+						</label>
+						<select class="select select-bordered w-full" formControlName="gameType" (change)="onGameTypeChange()">
 							<option [value]="GameType.SOLO_PLAYERS">Joueurs Solo</option>
 							<option [value]="GameType.TEAMS">Équipes</option>
 						</select>
 					</div>
-				</div>
 
-				@if (gameForm.get('gameType')?.value === GameType.SOLO_PLAYERS) {
-					<div formArrayName="players">
-						<h2>Joueurs</h2>
-						<div class="players">
-						@for (player of getPlayersControls(); track $index) {
-							<div [formGroupName]="$index" class="player-group">
-								<h3>Joueur {{ $index + 1 }}</h3>
-								<div class="form-group">
-									<label [for]="'name-' + $index">Pseudo :</label>
-									<input [id]="'name-' + $index" type="text" formControlName="name" placeholder="Pseudo" />
-								</div>
-
-								<div class="form-group-row">
-									<label [for]="'hasPhoto-' + $index">Ajouter une photo ?</label>
-									<input [id]="'hasPhoto-' + $index" type="checkbox" formControlName="hasPhoto" />
-								</div>
-
-								@if (player.get('hasPhoto')?.value) {
-									<div class="form-group">
-										<label [for]="'photo-' + $index">URL de l'Image :</label>
-										<input [id]="'photo-' + $index" type="url" formControlName="photo" placeholder="https://example.com/image.jpg" />
-									</div>
-								}
-
-								<button type="button" class="remove-button" (click)="removePlayer($index)" [disabled]="players.length === 1">
-									Supprimer ce Joueur
-								</button>
-							</div>
-						}
-						</div>
-						<button type="button" class="add-button" (click)="addPlayer()">
-							Ajouter un Joueur
-						</button>
-					</div>
-				} @else {
-					<div formArrayName="teams" class="teams">
-						<h2>Équipes</h2>
-						@for (team of getTeamsControls(); track $index) {
-							<div [formGroupName]="$index" class="team-group">
-								<h3>Équipe {{ $index + 1 }}</h3>
-								<div class="form-group">
-									<label [for]="'team-name-' + $index">Nom de l'équipe :</label>
-									<input [id]="'team-name-' + $index" type="text" formControlName="name" placeholder="Nom de l'équipe" />
-								</div>
-
-								<div class="form-group">
-									<label [for]="'team-color-' + $index">Couleur de l'équipe :</label>
-									<input [id]="'team-color-' + $index" type="color" formControlName="color" />
-								</div>
-
-								<div formGroupName="coach">
-									<h4>Coach</h4>
-									<div class="form-group">
-										<label [for]="'coach-name-' + $index">Nom du coach :</label>
-										<input [id]="'coach-name-' + $index" type="text" formControlName="name" placeholder="Nom du coach" />
-									</div>
-
-									<div class="form-group">
-										<label [for]="'coach-entity-' + $index">Entité :</label>
-										<select [id]="'coach-entity-' + $index" formControlName="entity">
-											<option value="">Sélectionner une entité</option>
-											@for (entity of entities; track entity) {
-												<option [value]="entity">{{ entity }}</option>
-											}
-										</select>
-									</div>
-
-									<div class="form-group">
-										<label [for]="'coach-hasPhoto-' + $index">
-											<input [id]="'coach-hasPhoto-' + $index" type="checkbox" formControlName="hasPhoto" />
-											Ajouter une photo ?
-										</label>
-									</div>
-
-									@if (team.get('coach.hasPhoto')?.value) {
-										<div class="form-group">
-											<label [for]="'coach-photo-' + $index">URL de l'Image :</label>
-											<input [id]="'coach-photo-' + $index" type="url" formControlName="photo" placeholder="https://example.com/image.jpg" />
+					@if (gameForm.get('gameType')?.value === GameType.SOLO_PLAYERS) {
+						<div formArrayName="players" class="space-y-4">
+							<div class="divider">Joueurs</div>
+							@for (player of getPlayersControls(); track $index) {
+								<div [formGroupName]="$index" class="card bg-gray-100 rounded">
+									<div class="card-body p-2.5">
+										<h3 class="card-title text-lg">Joueur {{ $index + 1 }}</h3>
+										<div class="form-control">
+											<label class="label">
+												<span class="label-text">Pseudo</span>
+											</label>
+											<div class="dropdown w-full">
+												<input
+													type="text"
+													formControlName="name"
+													placeholder="Pseudo"
+													class="input input-bordered w-full"
+													(focus)="setActiveInput('player-' + $index)"
+													(blur)="setActiveInput(null)"
+												/>
+												@if (activeInput() === 'player-' + $index && filteredUsers().length > 0) {
+													<ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full max-h-60 overflow-auto">
+														@for (user of filteredUsers(); track user.name) {
+															<li>
+																<a
+																	class="cursor-pointer"
+																	(mousedown)="$event.preventDefault(); selectUser(player, user)"
+																>
+																	{{ user.name }}
+																</a>
+															</li>
+														}
+													</ul>
+												}
+											</div>
 										</div>
-									}
-								</div>
 
-								<div formArrayName="players">
-									<h4>Joueurs de l'équipe</h4>
-									@for (player of getTeamPlayersControls(team); track $index) {
-										<div [formGroupName]="$index" class="player-group">
-											<h5>Joueur {{ $index + 1 }}</h5>
-											<div class="form-group">
-												<label [for]="'player-name-' + $index">Pseudo :</label>
-												<input [id]="'player-name-' + $index" type="text" formControlName="name" placeholder="Pseudo" />
+										<div class="form-control">
+											<label class="label cursor-pointer">
+												<span class="label-text">Ajouter une photo ?</span>
+												<input type="checkbox" formControlName="hasPhoto" class="toggle" />
+											</label>
+										</div>
+
+										@if (player.get('hasPhoto')?.value) {
+											<div class="form-control">
+												<label class="label">
+													<span class="label-text">URL de l'Image</span>
+												</label>
+												<input type="url" formControlName="photo" placeholder="https://example.com/image.jpg" class="input input-bordered w-full" />
 											</div>
+										}
 
-											<div class="form-group-row">
-												<label [for]="'player-hasPhoto-' + $index">Ajouter une photo ?</label>
-												<input [id]="'player-hasPhoto-' + $index" type="checkbox" formControlName="hasPhoto" />
-											</div>
-
-											@if (player.get('hasPhoto')?.value) {
-												<div class="form-group">
-													<label [for]="'player-photo-' + $index">URL de l'Image :</label>
-													<input [id]="'player-photo-' + $index" type="url" formControlName="photo" placeholder="https://example.com/image.jpg" />
-												</div>
-											}
-
-											<button type="button" class="remove-button"
-													(click)="removePlayer($index, getTeamIndex(team))"
-													[disabled]="getTeamPlayersControls(team).length === 1">
+										<div class="card-actions justify-end mt-4">
+											<button type="button" class="btn btn-error btn-sm" (click)="removePlayer($index)" [disabled]="players.length === 1">
 												Supprimer ce Joueur
 											</button>
-											<hr />
 										</div>
-									}
+									</div>
 								</div>
+							}
+							<button type="button" class="btn btn-primary w-full" (click)="addPlayer()">
+								Ajouter un Joueur
+							</button>
+						</div>
+					} @else {
+						<div formArrayName="teams" class="space-y-4">
+							<div class="divider">Équipes</div>
+							@for (team of getTeamsControls(); track $index) {
+								<div [formGroupName]="$index" class="card rounded">
+									<div class="card-body p-2.5">
+										<h3 class="card-title text-lg">Équipe {{ $index + 1 }}</h3>
 
-								<div class="button-group">
-									<button type="button" class="add-button" (click)="addPlayer()">
-										Ajouter un Joueur à l'équipe
-									</button>
-									<button type="button" class="remove-button" (click)="removeTeam($index)" [disabled]="teams.length === 1">
-										Supprimer cette Équipe
-									</button>
+										<div class="form-control">
+											<label class="label">
+												<span class="label-text">Nom de l'équipe</span>
+											</label>
+											<input type="text" formControlName="name" placeholder="Nom de l'équipe" class="input input-bordered w-full" />
+										</div>
+
+										<div class="form-control">
+											<label class="label">
+												<span class="label-text">Couleur de l'équipe</span>
+											</label>
+											<input type="color" formControlName="color" class="input input-bordered h-12" />
+										</div>
+
+										<div class="divider">Coach</div>
+										<div formGroupName="coach">
+											<div class="form-control">
+												<label class="label">
+													<span class="label-text">Nom du coach</span>
+												</label>
+												<div class="dropdown w-full">
+													<input
+														type="text"
+														formControlName="name"
+														placeholder="Nom du coach"
+														class="input input-bordered w-full"
+														(focus)="setActiveInput('coach-' + getTeamIndex(team))"
+														(blur)="setActiveInput(null)"
+													/>
+													@if (activeInput() === 'coach-' + getTeamIndex(team) && filteredUsers().length > 0) {
+														<ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full max-h-60 overflow-auto">
+															@for (user of filteredUsers(); track user.name) {
+																<li>
+																	<a (mousedown)="$event.preventDefault(); selectUser(team.get('coach')!, user)">
+																		{{ user.name }}
+																	</a>
+																</li>
+															}
+														</ul>
+													}
+												</div>
+											</div>
+
+											<div class="form-control">
+												<label class="label">
+													<span class="label-text">Entité</span>
+												</label>
+												<select class="select select-bordered w-full" formControlName="entity">
+													@for (entity of entities; track entity) {
+														<option [value]="entity">{{ entity }}</option>
+													}
+												</select>
+											</div>
+
+											<div class="form-control">
+												<label class="label cursor-pointer">
+													<span class="label-text">Ajouter une photo ?</span>
+													<input type="checkbox" formControlName="hasPhoto" class="toggle" />
+												</label>
+											</div>
+
+											@if (team.get('coach.hasPhoto')?.value) {
+												<div class="form-control">
+													<label class="label">
+														<span class="label-text">URL de l'Image</span>
+													</label>
+													<input type="url" formControlName="photo" placeholder="https://example.com/image.jpg" class="input input-bordered w-full" />
+												</div>
+											}
+										</div>
+
+										<div formArrayName="players" class="space-y-4">
+											<div class="divider">Joueurs de l'équipe</div>
+											@for (player of getTeamPlayersControls(team); track $index) {
+												<div [formGroupName]="$index" class="card rounded">
+													<div class="card-body p-2.5">
+														<h5 class="card-title text-base">Joueur {{ $index + 1 }}</h5>
+														<div class="form-control">
+															<label class="label">
+																<span class="label-text">Pseudo</span>
+															</label>
+															<div class="dropdown w-full">
+																<input
+																	type="text"
+																	formControlName="name"
+																	placeholder="Pseudo"
+																	class="input input-bordered w-full"
+																	(focus)="setActiveInput('team-' + getTeamIndex(team) + '-player-' + $index)"
+																	(blur)="setActiveInput(null)"
+																/>
+																@if (activeInput() === 'team-' + getTeamIndex(team) + '-player-' + $index && filteredUsers().length > 0) {
+																	<ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full max-h-60 overflow-auto">
+																		@for (user of filteredUsers(); track user.name) {
+																			<li><a (mousedown)="$event.preventDefault(); selectUser(player, user)">{{ user.name }}</a></li>
+																		}
+																	</ul>
+																}
+															</div>
+														</div>
+
+														<div class="form-control">
+															<label class="label cursor-pointer">
+																<span class="label-text">Ajouter une photo ?</span>
+																<input type="checkbox" formControlName="hasPhoto" class="toggle" />
+															</label>
+														</div>
+
+														@if (player.get('hasPhoto')?.value) {
+															<div class="form-control">
+																<label class="label">
+																	<span class="label-text">URL de l'Image</span>
+																</label>
+																<input type="url" formControlName="photo" placeholder="https://example.com/image.jpg" class="input input-bordered w-full" />
+															</div>
+														}
+													</div>
+												</div>
+											}
+											<button type="button" class="btn btn-primary w-full" (click)="addPlayer()">
+												Ajouter un Joueur à l'équipe
+											</button>
+										</div>
+
+										<div class="card-actions justify-end mt-4">
+											<button type="button" class="btn btn-error" (click)="removeTeam($index)" [disabled]="teams.length === 1">
+												Supprimer cette Équipe
+											</button>
+										</div>
+									</div>
 								</div>
-							</div>
-						}
-						<button type="button" class="add-button" (click)="addTeam()">
-							Ajouter une Équipe
+							}
+							<button type="button" class="btn btn-primary w-full" (click)="addTeam()">
+								Ajouter une Équipe
+							</button>
+						</div>
+					}
+
+					<div class="divider"></div>
+
+					<div class="card-actions justify-end">
+						<button type="submit" class="btn btn-primary" [disabled]="gameForm.invalid">
+							Créer la Partie
 						</button>
 					</div>
-				}
-				<hr>
-				<div class="button-group">
-					<button type="submit" class="submit-button" [disabled]="gameForm.invalid">
-						Créer la Partie
-					</button>
 				</div>
 			</form>
 		</div>

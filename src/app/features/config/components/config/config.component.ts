@@ -8,6 +8,7 @@ import { GameType } from '../../../../models/GameType';
 import { Team } from '../../../../models/Team';
 import { TeamPlayer } from '../../../../models/TeamPlayer';
 import { BasePlayer } from '../../../../models/BasePlayer';
+import { GameStatus } from '../../../../models/GameStatus';
 
 @Component({
 	selector: 'app-config',
@@ -107,4 +108,6 @@ export class ConfigComponent {
 	showAddPlayerModal(teamId?: string) {
 		this.addPlayerModal.show(teamId);
 	}
+
+	protected readonly GameStatus = GameStatus;
 }

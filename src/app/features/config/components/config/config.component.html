@@ -1,144 +1,194 @@
-<div class="container mt-20 mb-20">
-	<div class="config-game-container mb-20">
-		<h2 class="mb-10">Configurer la pagination</h2>
-		<div class="pagination-config mb-10">
-			<form [formGroup]="paginationForm" (ngSubmit)="onPaginationSubmit()" class="pagination-form">
-				<div class="form-group">
-					<label for="firstPageSize">Nombre de joueurs sur la première page :</label>
-					<input
-						id="firstPageSize"
-						type="number"
-						formControlName="firstPageSize"
-						min="1"
-					/>
-				</div>
-				<div class="form-group">
-					<label for="otherPagesSize">Nombre de joueurs sur les autres pages :</label>
-					<input
-						id="otherPagesSize"
-						type="number"
-						formControlName="otherPagesSize"
-						min="1"
-					/>
-				</div>
-				<button type="submit" [disabled]="paginationForm.invalid">
-					Appliquer
-				</button>
-			</form>
+<div class="container mt-10 mb-10 mx-auto">
+	<div class="config-game-container mb-10">
+		<h2 class="text-xl mb-4">Configurer la pagination</h2>
+		<div class="card bg-gray-100 rounded">
+			<div class="card-body p-2.5">
+				<form [formGroup]="paginationForm" (ngSubmit)="onPaginationSubmit()">
+					<div class="form-control w-full max-w-xs mb-2">
+						<label class="label">
+							<span class="label-text">Nombre de joueurs sur la première page</span>
+						</label>
+						<input
+							type="number"
+							formControlName="firstPageSize"
+							min="1"
+							class="input input-bordered input-sm w-full max-w-xs"
+						/>
+					</div>
+					<div class="form-control w-full max-w-xs mb-2">
+						<label class="label">
+							<span class="label-text">Nombre de joueurs sur les autres pages</span>
+						</label>
+						<input
+							type="number"
+							formControlName="otherPagesSize"
+							min="1"
+							class="input input-bordered input-sm w-full max-w-xs"
+						/>
+					</div>
+					<button type="submit" class="btn btn-sm btn-primary" [disabled]="paginationForm.invalid">
+						Appliquer
+					</button>
+				</form>
+			</div>
 		</div>
 
-		<h2 class="mb-10">Configurer la partie</h2>
+		<h2 class="text-xl mb-4 mt-4">Configurer la partie</h2>
 		@if (game()?.gameType === GameType.SOLO_PLAYERS) {
-			<div class="players-list">
-				<h3 class="mb-10">Joueurs</h3>
-				<div class="players mb-10">
-					@for (player of players(); track player.id) {
-					<div class="player-container row">
-						<div class="player-photo col-1">
-							<img [src]="player.photo" width="85">
-						</div>
-						<div class="player-horse col-1">
-							<img src="./assets/img/horse/{{ player.horse }}.svg" width="85">
-						</div>
-						<div class="player-name col-3">
-							<p>{{ player.name }}</p>
-						</div>
-						<div class="player-name col-3">
-							<p>{{ player.points }} points</p>
-						</div>
-						<div class="player-action col-4">
-							<div class="button-group">
-								<button type="button" class="remove" (click)="onClickRemovePoint(player)">
-									-1
+			<div class="card bg-gray-100 rounded">
+				<div class="card-body p-2.5">
+					<h3 class="card-title text-lg">Joueurs</h3>
+					<div class="overflow-x-auto">
+						<table class="table table-xs">
+							<thead>
+								<tr>
+									<th class="w-16">Photo</th>
+									<th class="w-16">Cheval</th>
+									<th>Nom</th>
+									<th class="w-24">Points</th>
+									<th class="w-48">Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for (player of players(); track player.id) {
+									<tr class="hover">
+										<td>
+											<div class="avatar">
+												<div class="w-8 rounded">
+													<img [src]="player.photo" alt="Photo du joueur" />
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class="avatar">
+												<div class="w-8">
+													<img src="./assets/img/horse/{{ player.horse }}.svg" class="horse" alt="Cheval" />
+												</div>
+											</div>
+										</td>
+										<td>{{ player.name }}</td>
+										<td>{{ player.points }} pts</td>
+										<td>
+											<div class="join">
+												<button class="btn btn-xs join-item" (click)="onClickRemovePoint(player)">-1</button>
+												<button class="btn btn-xs btn-primary join-item" (click)="onClickAddPoint(player)">+1</button>
+												<button class="btn btn-xs btn-error join-item" (click)="onClickDeletePlayer(player)">
+													Supprimer
+												</button>
+											</div>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<div class="card-actions justify-end mt-2">
+						<button type="button" class="btn btn-sm btn-primary" (click)="showAddPlayerModal()">
+							Ajouter un Joueur
+						</button>
+					</div>
+				</div>
+			</div>
+		} @else {
+			<div class="teams-list">
+				<h3 class="mb-2">Équipes</h3>
+				@for (team of teams(); track team.id) {
+					<div class="card bg-gray-100 rounded mb-2">
+						<div class="card-body p-2.5">
+							<div class="flex justify-between items-center">
+								<h4 class="card-title">{{ team.name }}</h4>
+								<div class="left">
+									<div class="badge" [style.background-color]="team.color">Coach: {{ team.coach.name }}</div>
+									<div class="badge badge-accent">{{ team.coach.entity }}</div>
+								</div>
+								<div class="rigth">
+									<div class="badge badge-primary">{{ team.points }} points</div>
+								</div>
+							</div>
+
+							<div class="overflow-x-auto">
+								<table class="table table-xs">
+									<thead>
+										<tr>
+											<th class="w-16">Photo</th>
+											<th class="w-16">Cheval</th>
+											<th>Nom</th>
+											<th class="w-24">Points</th>
+											<th class="w-48">Actions</th>
+										</tr>
+									</thead>
+									<tbody>
+										@for (player of team.players; track player.id) {
+											<tr>
+												<td>
+													<div class="avatar">
+														<div class="w-8 rounded">
+															<img [src]="player.photo" alt="Photo du joueur" />
+														</div>
+													</div>
+												</td>
+												<td>
+													<div class="avatar">
+														<div class="w-8 rounded">
+															<img src="./assets/img/horse/{{ player.horse }}.svg" class="horse" alt="Cheval" />
+														</div>
+													</div>
+												</td>
+												<td>{{ player.name }}</td>
+												<td>{{ player.points }} points</td>
+												<td>
+													<div class="join">
+														<button class="btn btn-xs join-item" (click)="onClickRemovePoint(player)">-1</button>
+														<button class="btn btn-xs btn-primary join-item" (click)="onClickAddPoint(player)">+1</button>
+														<button class="btn btn-xs btn-error join-item" (click)="onClickDeleteTeamPlayer(player)">
+															Supprimer
+														</button>
+													</div>
+												</td>
+											</tr>
+										}
+									</tbody>
+								</table>
+							</div>
+
+							<div class="card-actions justify-end mt-2">
+								<button class="btn btn-primary btn-sm" (click)="showAddPlayerModal(team.id)">
+									Ajouter un Joueur
 								</button>
-								<button type="button" class="add" (click)="onClickAddPoint(player)">
-									+1
-								</button>
-								<button type="button" class="delete" (click)="onClickDeletePlayer(player)">
-									Supprimer ce Joueur
+								<button class="btn btn-error btn-sm" (click)="onClickDeleteTeam(team)">
+									Supprimer l'équipe
 								</button>
 							</div>
 						</div>
 					</div>
-					}
-				</div>
-				<button type="button" class="add-button" (click)="showAddPlayerModal()">
-					Ajouter un Joueur
-				</button>
-			</div>
-		} @else {
-			<div class="teams-list">
-				<h3 class="mb-10">Équipes</h3>
-				@for (team of teams(); track team.id) {
-					<div class="team-container">
-						<div class="team-header">
-							<h4>{{ team.name }}</h4>
-							<p class="coach" [style.background-color]="team.color">{{ team.coach.name }}</p>
-							<p class="entity">{{ team.coach.entity }}</p>
-							<p class="points">{{ team.points }} points</p>
-						</div>
-
-						<div class="players">
-							@for (player of team.players; track player.id) {
-								<div class="player-container row">
-									<div class="player-photo col-1">
-										<img [src]="player.photo" width="85">
-									</div>
-									<div class="player-horse col-1">
-										<img src="./assets/img/horse/{{ player.horse }}.svg" width="85">
-									</div>
-									<div class="player-name col-3">
-										<p>{{ player.name }}</p>
-									</div>
-									<div class="player-points col-3">
-										<p>{{ player.points }} points</p>
-									</div>
-									<div class="player-action col-4">
-										<div class="button-group">
-											<button type="button" class="remove" (click)="onClickRemovePoint(player)">-1</button>
-											<button type="button" class="add" (click)="onClickAddPoint(player)">+1</button>
-											<button type="button" class="delete" (click)="onClickDeleteTeamPlayer(player)">
-												Supprimer ce Joueur
-											</button>
-										</div>
-									</div>
-								</div>
-							}
-						</div>
-						<div class="button-group">
-							<button type="button" class="add-button" (click)="showAddPlayerModal(team.id)">
-								Ajouter un Joueur
-							</button>
-							<button type="button" class="delete" (click)="onClickDeleteTeam(team)">
-								Supprimer l'équipe
-							</button>
-						</div>
-					</div>
 				}
 
-				<button type="button" class="add-team-button" (click)="showAddTeamModal()">
+				<button type="button" class="btn btn-primary mt-2 btn-sm" (click)="showAddTeamModal()">
 					Ajouter une Équipe
 				</button>
 			</div>
 		}
 	</div>
-	<div class="gestion-group">
-		<h3 class="mb-10">Gestion</h3>
-		<div class="button-group">
-			<button type="button" class="reset-button" (click)="onClickResetPoints()">
-				Réinitialiser les points
-			</button>
-			@if (game()?.status === 'FINISHED') {
-				<button type="button" class="restart-button" (click)="onClickRestartGame()">
-					Relancer la partie
+
+	<div class="card bg-gray-100 mb-10 rounded">
+		<div class="card-body p-2.5">
+			<h3 class="card-title">Gestion</h3>
+			<div class="card-actions">
+				<button class="btn btn-sm" (click)="onClickResetPoints()">
+					Réinitialiser les points
 				</button>
-			}
-			<button type="button" class="end-button" (click)="onClickEndGame()">
-				Terminer la Partie
-			</button>
-			<button type="button" class="recreate-button" (click)="onClickRecreateGame()">
-				Recréer une Partie
-			</button>
+				@if (game()?.status === GameStatus.FINISHED) {
+					<button class="btn btn-primary btn-sm" (click)="onClickRestartGame()">
+						Relancer la partie
+					</button>
+				}
+				<button class="btn btn-warning btn-sm" (click)="onClickEndGame()">
+					Terminer la Partie
+				</button>
+				<button class="btn btn-error btn-sm" (click)="onClickRecreateGame()">
+					Recréer une Partie
+				</button>
+			</div>
 		</div>
 	</div>
 </div>

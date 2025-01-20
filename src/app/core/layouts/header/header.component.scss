@@ -1,34 +1,7 @@
 @use 'variables' as *;
 
-header  {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  background-color: $alternative-light-gray;
-  color: $black;
-  padding: 0 20px;
-
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-  }
-
-  .menu {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: $alternative-dark-blue;
-  }
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: $alternative-blue;
 }

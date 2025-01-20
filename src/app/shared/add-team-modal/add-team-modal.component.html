@@ -1,60 +1,103 @@
 @if (visible()) {
-	<div class="modal-overlay" (click)="hide()">
-		<div class="modal" (click)="$event.stopPropagation()">
-			<div class="modal-header">
-				<h3>Ajouter une nouvelle équipe</h3>
-			</div>
+	<dialog class="modal modal-open">
+		<div class="modal-box">
+			<h3 class="font-bold text-lg mb-4">Ajouter une nouvelle équipe</h3>
+			<form [formGroup]="teamForm" (ngSubmit)="onSubmit()" method="dialog">
+				<div class="form-control w-full mb-2">
+					<label class="label">
+						<span class="label-text">Nom de l'équipe</span>
+					</label>
+					<input
+						type="text"
+						formControlName="name"
+						placeholder="Nom de l'équipe"
+						class="input input-bordered input-sm w-full"
+					/>
+				</div>
 
-			<div class="modal-content">
-				<form [formGroup]="teamForm" (ngSubmit)="onSubmit()">
-					<div class="form-group">
-						<label for="name">Nom de l'équipe :</label>
-						<input id="name" type="text" formControlName="name" placeholder="Nom de l'équipe"/>
+				<div class="form-control w-full mb-2">
+					<label class="label">
+						<span class="label-text">Couleur de l'équipe</span>
+					</label>
+					<input
+						type="color"
+						formControlName="color"
+						class="h-10 w-full cursor-pointer rounded-lg"
+					/>
+				</div>
+
+				<div formGroupName="coach" class="mt-4">
+					<h4 class="font-semibold mb-2">Coach</h4>
+					<div class="form-control w-full mb-2">
+						<label class="label">
+							<span class="label-text">Coach</span>
+						</label>
+						<div class="dropdown w-full">
+							<input
+								type="text"
+								formControlName="name"
+								placeholder="Nom du coach"
+								class="input input-bordered input-sm w-full"
+							/>
+							@if (filteredUsers().length > 0) {
+								<ul class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-full max-h-60 overflow-auto">
+									@for (user of filteredUsers(); track user.name) {
+										<li>
+											<a (mousedown)="$event.preventDefault(); selectUser(user)">
+												{{ user.name }}
+											</a>
+										</li>
+									}
+								</ul>
+							}
+						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="color">Couleur de l'équipe :</label>
-						<input id="color" type="color" formControlName="color"/>
+					<div class="form-control w-full mb-2">
+						<label class="label">
+							<span class="label-text">Entité</span>
+						</label>
+						<select
+							formControlName="entity"
+							class="select select-bordered select-sm w-full"
+						>
+							<option value="">Sélectionner une entité</option>
+							@for (entity of entities; track entity) {
+								<option [value]="entity">{{ entity }}</option>
+							}
+						</select>
 					</div>
 
-					<div formGroupName="coach">
-						<h4>Coach</h4>
-						<div class="form-group">
-							<label for="coachName">Nom du coach :</label>
-							<input id="coachName" type="text" formControlName="name" placeholder="Nom du coach"/>
-						</div>
+					<div class="form-control w-full mb-2">
+						<label class="label cursor-pointer">
+							<span class="label-text">Ajouter une photo ?</span>
+							<input type="checkbox" formControlName="hasPhoto" class="checkbox checkbox-sm" />
+						</label>
+					</div>
 
-						<div class="form-group">
-							<label for="entity">Entité :</label>
-							<select id="entity" formControlName="entity">
-								<option value="">Sélectionner une entité</option>
-								@for (entity of entities; track entity) {
-									<option [value]="entity">{{ entity }}</option>
-								}
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label for="hasPhoto">
-								<input id="hasPhoto" type="checkbox" formControlName="hasPhoto"/>
-								Ajouter une photo ?
+					@if (teamForm.get('coach.hasPhoto')?.value) {
+						<div class="form-control w-full mb-2">
+							<label class="label">
+								<span class="label-text">URL de la photo</span>
 							</label>
+							<input
+								type="url"
+								formControlName="photo"
+								placeholder="https://example.com/image.jpg"
+								class="input input-bordered input-sm w-full"
+							/>
 						</div>
+					}
+				</div>
 
-						@if (teamForm.get('coach.hasPhoto')?.value) {
-							<div class="form-group">
-								<label for="photo">URL de l'Image :</label>
-								<input id="photo" type="url" formControlName="photo" placeholder="https://example.com/image.jpg"/>
-							</div>
-						}
-					</div>
-
-					<div class="modal-actions">
-						<button type="button" class="cancel" (click)="hide()">Annuler</button>
-						<button type="submit" class="submit" [disabled]="teamForm.invalid">Ajouter</button>
-					</div>
-				</form>
-			</div>
+				<div class="modal-action">
+					<button type="button" class="btn btn-sm" (click)="hide()">Annuler</button>
+					<button type="submit" class="btn btn-sm btn-primary" [disabled]="teamForm.invalid">Ajouter</button>
+				</div>
+			</form>
 		</div>
-	</div>
+		<div class="modal-backdrop" (click)="hide()">
+			<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+		</div>
+	</dialog>
 }
