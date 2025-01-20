@@ -1,0 +1,8 @@
+@use 'variables' as *;
+
+.race-team {
+	border-radius: $rounded;
+	background-color: $light-gray;
+	padding: $padding;
+	position: relative;
+}

@@ -1,0 +1,43 @@
+<div class="leaderboard">
+	<p class="title">Leaderboard d'équipe</p>
+		<div class="leader">
+			<div class="row gap">
+				<div class="second col-4">
+					<p  class="number">2</p>
+					<div class="row-col">
+						<div class="player-photo">
+							<div class="team-color" [style.background-color]="second()?.color"></div>
+						</div>
+						<div class="row gap-10 center">
+							<div class="name">{{ second()?.name }}</div>
+							<p class="player-points"><small>{{ second()?.points }} points</small></p>
+						</div>
+					</div>
+				</div>
+				<div class="first col-6">
+					<p class="number">1</p>
+					<div class="row-col">
+						<div class="player-photo">
+							<div class="team-color" [style.background-color]="first()?.color"></div>
+						</div>
+						<div class="row gap-10 center">
+							<div class="name">{{ first()?.name }}</div>
+							<p class="player-points"><small>{{ first()?.points }} points</small></p>
+						</div>
+					</div>
+				</div>
+				<div class="third col-3">
+					<p  class="number">3</p>
+					<div class="row-col">
+						<div class="player-photo">
+							<div class="team-color" [style.background-color]="third()?.color"></div>
+						</div>
+						<div class="row gap-10 center">
+							<div class="name">{{ third()?.name }}</div>
+							<p class="player-points"><small>{{ third()?.points }} points</small></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

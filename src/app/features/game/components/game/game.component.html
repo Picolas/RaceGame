@@ -1,7 +1,19 @@
 <div class="game-container" [class.container]="!layoutService.isFluid()">
   @if (showLeaderboard()) {
-    <app-leaderboard [players]="sortedPlayers()"/>
+	  @if (layoutService.showTeamLeaderboard() && teams().length > 0) {
+		<app-team-leaderboard [teams]="teams()" />
+	  } @else {
+		  <app-player-leaderboard [players]="sortedPlayers()" />
+	  }
   }
+
+	@if (layoutService.showTeamRace() && teams().length > 0) {
+		<app-race-team
+			[teams]="teams()"
+			[allTeams]="teams()"
+			[game]="game()"
+		/>
+	}
 
   <app-race
     [players]="pagedPlayers()"

@@ -1,16 +1,16 @@
-<div class="player-container row" [style.order]="order()">
-	<app-player-name
-		[player]="player()"
+<div class="team-container row" [style.order]="order()">
+	<app-team-name
+		[team]="team()"
 		[isFirst]="isFirst()"
 		[isLast]="isLast()"
 		[isNotLast]="isNotLast()"
 		[movementClass]="movementClass()"
-	></app-player-name>
+	></app-team-name>
 
 	<div class="horse-container col-11">
 		<app-horse-progress
-			[player]="player()"
-			[allPlayers]="allPlayers()"
+			[team]="team()"
+			[allTeams]="allTeams()"
 			[game]="game()"
 		></app-horse-progress>
 
@@ -20,5 +20,5 @@
 		></app-grass>
 	</div>
 
-	<app-end-pilon></app-end-pilon>
+	<app-end-pilon/>
 </div>

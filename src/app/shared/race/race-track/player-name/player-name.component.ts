@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { BasePlayer } from '../../models/BasePlayer';
+import { BasePlayer } from '../../../../models/BasePlayer';
 
 @Component({
   selector: 'app-player-name',

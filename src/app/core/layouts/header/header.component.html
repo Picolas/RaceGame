@@ -6,6 +6,10 @@
     <div class="menu">
       <a [routerLink]="['/game']">Game</a>
       <a [routerLink]="['/config']">Configuration</a>
+		@if (game()?.gameType === GameType.TEAMS) {
+		<a (click)="toggleTeamLeaderboard()">{{ layoutService.showTeamLeaderboard() ? 'Cacher le leaderboard en équipe' : 'Afficher le leaderboard en équipe' }}</a>
+		<a (click)="toggleTeamRace()">{{ layoutService.showTeamRace() ? 'Cacher la course en équipe' : 'Afficher la course en équipe' }}</a>
+		}
 		<a (click)="toggleFluid()"><i class="pi" [class.pi-window-maximize]="!layoutService.isFluid()" [class.pi-window-minimize]="layoutService.isFluid()"></i></a>
     </div>
   </div>

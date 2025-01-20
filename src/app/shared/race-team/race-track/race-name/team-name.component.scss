@@ -1,0 +1,83 @@
+@use 'variables' as *;
+
+.team-name {
+	font-size: 1.1rem;
+	width: 150px;
+	height: 100%;
+	color: $white;
+	background-color: $alternative-dark-blue;
+	display: flex;
+	align-items: center;
+	padding: 0 $padding;
+
+	&.not-last {
+		border-bottom: 2.5px solid $alternative-blue;
+	}
+
+	&.movement-up,
+	&.movement-down {
+		transition: background-color 0.2s ease-in-out;
+	}
+	&.movement-up {
+		background-color: $blue;
+	}
+	&.movement-down {
+		background-color: $alternative-pink;
+	}
+
+	.position-badge {
+		color: $black;
+		font-weight: bold;
+	}
+	&.first {
+		@extend .position-badge;
+		background-color: $alternative-yellow;
+	}
+	&.second {
+		@extend .position-badge;
+		background-color: $alternative-pink;
+	}
+	&.third {
+		@extend .position-badge;
+		background-color: $alternative-blue;
+	}
+
+	.team-info {
+		display: flex;
+		flex-direction: column;
+		line-height: 1;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
+		p {
+			margin: 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.points {
+			background-color: $alternative-blue;
+			padding: 0.1rem 0.1rem;
+			border-radius: $rounded;
+			width: fit-content;
+			font-size: 0.7rem;
+			color: $white;
+		}
+	}
+
+	.race-team-color {
+		width: 30px;
+		height: 30px;
+		margin-right: $padding;
+		border-radius: 50%;
+	}
+}
+
+.border-bottom-left {
+	border-bottom-left-radius: $rounded;
+}
+
+.border-top-left {
+	border-top-left-radius: $rounded;
+}

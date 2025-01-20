@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Player} from '../../models/Player';
+import { BasePlayer } from '../../models/BasePlayer';
 
 @Pipe({
   name: 'ranks'
 })
 export class RanksPipe implements PipeTransform {
 
-  transform(players: Player[] | null): Player[] {
+  transform(players: BasePlayer[] | null): BasePlayer[] {
 	  	if (!players || players.length === 0) {
 	  return [];
 	}

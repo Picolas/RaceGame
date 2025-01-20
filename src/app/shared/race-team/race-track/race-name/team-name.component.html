@@ -1,0 +1,15 @@
+<div
+	class="team-name"
+	[class.not-last]="isNotLast()"
+	[class.border-bottom-left]="isLast()"
+	[class.border-top-left]="isFirst()"
+	[class.movement-up]="movementClass() === 'movement-up'"
+	[class.movement-down]="movementClass() === 'movement-down'"
+>
+	<div class="race-team-color"  [style.background-color]="team().color">
+	</div>
+	<div class="team-info">
+		<p>{{ team().name }}</p>
+		<p class="points">{{ team().points }} pts</p>
+	</div>
+</div>

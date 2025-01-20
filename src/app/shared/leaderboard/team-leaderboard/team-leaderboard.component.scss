@@ -49,7 +49,7 @@
 				position: absolute;
 			}
 
-			.player-photo img {
+			.player-photo .team-color {
 				width: 4.375rem;
 				height: 4.375rem;
 				border-radius: 50%;
@@ -57,7 +57,6 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				object-fit: cover;
 			}
 
 			.number {
@@ -97,7 +96,7 @@
 				position: absolute;
 			}
 
-			.player-photo img {
+			.player-photo .team-color {
 				width: 3rem;
 				height: 3rem;
 				border-radius: 50%;
@@ -105,7 +104,6 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				object-fit: cover;
 			}
 
 			.name {
@@ -117,7 +115,7 @@
 			background-color: $alternative-blue;
 			height: 3.125rem;
 			border-radius: $rounded;
-			padding: $padding $padding 0px;
+			padding: $padding $padding 0;
 			align-self: end;
 			display: flex;
 
@@ -136,7 +134,7 @@
 				position: absolute;
 			}
 
-			.player-photo img {
+			.player-photo .team-color {
 				width: 2rem;
 				height: 2rem;
 				border-radius: 50%;
@@ -144,7 +142,6 @@
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
-				object-fit: cover;
 			}
 
 			.name {

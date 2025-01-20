@@ -1,0 +1,155 @@
+@use 'variables' as *;
+
+.leaderboard {
+	background-color: $light-gray;
+	width: 100%;
+	height: 100%;
+	border-radius: $rounded;
+	padding: $padding;
+
+	.title {
+		font-size: 1.5rem;
+		font-weight: bold;
+		color: $alternative-dark-blue;
+		margin: 0;
+	}
+
+	.leader {
+
+		.row-col {
+			flex: 1;
+			display: flex;
+			justify-content: end;
+			align-items: center;
+			flex-direction: column;
+			position: relative;
+		}
+
+		.name {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			max-width: 150px;
+		}
+
+		.first {
+			background-color: $alternative-yellow;
+			height: 7.188rem;
+			border-radius: $rounded;
+			align-self: end;
+			padding: $padding;
+			display: flex;
+
+			.player-photo {
+				width: 5rem;
+				height: 5rem;
+				top: -2.813rem;
+				border-radius: 50%;
+				background-color: $alternative-yellow;
+				position: absolute;
+			}
+
+			.player-photo img {
+				width: 4.375rem;
+				height: 4.375rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				object-fit: cover;
+			}
+
+			.number {
+				font-size: 2.8rem;
+				font-weight: 900;
+				align-items: center;
+				display: flex;
+			}
+
+			.name {
+				font-size: 1.5rem;
+			}
+		}
+
+		.second {
+			background-color: $alternative-pink;
+			height: 4.688rem;
+			border-radius: $rounded;
+			align-self: end;
+			padding: $padding;
+			display: flex;
+
+			.number {
+				font-size: 2rem;
+				font-weight: 600;
+				align-items: center;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.player-photo {
+				width: 3.6em;
+				height: 3.6rem;
+				top: -2.28rem;
+				border-radius: 50%;
+				background-color: $alternative-pink;
+				position: absolute;
+			}
+
+			.player-photo img {
+				width: 3rem;
+				height: 3rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				object-fit: cover;
+			}
+
+			.name {
+				font-size: 1.5rem;
+			}
+		}
+
+		.third {
+			background-color: $alternative-blue;
+			height: 3.125rem;
+			border-radius: $rounded;
+			padding: $padding $padding 0;
+			align-self: end;
+			display: flex;
+
+			.number {
+				font-size: 1.5rem;
+				align-items: center;
+				display: flex;
+			}
+
+			.player-photo {
+				width: 2.6em;
+				height: 2.6rem;
+				top: -1.8rem;
+				border-radius: 50%;
+				background-color: $alternative-blue;
+				position: absolute;
+			}
+
+			.player-photo img {
+				width: 2rem;
+				height: 2rem;
+				border-radius: 50%;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				object-fit: cover;
+			}
+
+			.name {
+				font-size: 1rem;
+			}
+		}
+	}
+}

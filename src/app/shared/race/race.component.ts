@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, effect, inject, input } from '@angu
 import { ConfettiService } from '../../core/services/ConfettiService/confetti.service';
 import { GameStatus } from '../../models/GameStatus';
 import { signal } from '@angular/core';
-import { RaceTrackComponent } from '../race-track/race-track.component';
+import { RaceTrackComponent } from './race-track/race-track.component';
 import { BasePlayer } from '../../models/BasePlayer';
 import { Game } from '../../models/BaseGame';
 

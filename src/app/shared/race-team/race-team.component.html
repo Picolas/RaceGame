@@ -1,0 +1,16 @@
+<div class="race-team">
+	<div class="players">
+		@for (team of teams(); track team.id) {
+			<app-race-track
+				[team]="team"
+				[allTeams]="allTeams()"
+				[game]="game()"
+				[order]="getDisplayOrder(team.id)"
+				[isFirst]="$first"
+				[isLast]="$last"
+				[isNotLast]="!$last"
+				[movementClass]="getTeamMovementClass(team.id)"
+			/>
+		}
+	</div>
+</div>

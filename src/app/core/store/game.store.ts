@@ -1,7 +1,6 @@
 import { patchState, signalStore, withState, withComputed, withMethods } from '@ngrx/signals';
 import { computed, inject, effect } from '@angular/core';
 import { GameService } from '../services/GameService/game.service';
-import { Player } from '../../models/Player';
 import { LocalStorageService } from '../services/LocalStorageService/local-storage.service';
 import { Router } from '@angular/router';
 import { Game } from '../../models/BaseGame';
@@ -9,8 +8,6 @@ import { GameType } from '../../models/GameType';
 import { TeamPlayer } from '../../models/TeamPlayer';
 import { Team } from '../../models/Team';
 import { BasePlayer } from '../../models/BasePlayer';
-import { Coach } from '../../models/Coach';
-import { Role } from '../../models/Role';
 
 export interface GameState {
 	currentGame: Game | null;

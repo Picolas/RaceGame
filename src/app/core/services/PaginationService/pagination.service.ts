@@ -7,7 +7,6 @@ import { BasePlayer } from '../../../models/BasePlayer';
 	providedIn: 'root'
 })
 export class PaginationService {
-	private storageKey = 'pagination';
 	private localStorageService = inject(LocalStorageService);
 
 	private firstPageSize = signal(this.getStoredFirstPageSize());

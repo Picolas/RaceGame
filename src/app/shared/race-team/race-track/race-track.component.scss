@@ -1,0 +1,15 @@
+@use 'variables' as *;
+
+.team-container {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+	background-color: #FFFFFF;
+	height: 50px;
+	transition: order 0.5s ease-in-out;
+}
+
+.horse-container {
+	position: relative;
+}

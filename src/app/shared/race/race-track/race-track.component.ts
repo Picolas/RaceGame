@@ -1,10 +1,10 @@
 import { Component, input } from '@angular/core';
-import { PlayerNameComponent } from '../player-name/player-name.component';
-import { HorseProgressComponent } from '../horse-progress/horse-progress.component';
-import { GrassComponent } from '../grass/grass.component';
-import { EndPilonComponent } from '../end-pilon/end-pilon.component';
-import { BasePlayer } from '../../models/BasePlayer';
-import { Game } from '../../models/BaseGame';
+import { PlayerNameComponent } from './player-name/player-name.component';
+import { HorseProgressComponent } from './horse-progress/horse-progress.component';
+import { GrassComponent } from '../../grass/grass.component';
+import { EndPilonComponent } from '../../end-pilon/end-pilon.component';
+import { BasePlayer } from '../../../models/BasePlayer';
+import { Game } from '../../../models/BaseGame';
 
 @Component({
 	selector: 'app-race-track',

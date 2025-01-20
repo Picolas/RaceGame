@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
-import { PlayerLeftPercentagePipe } from '../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
-import { BasePlayer } from '../../models/BasePlayer';
-import { Game } from '../../models/BaseGame';
+import { PlayerLeftPercentagePipe } from '../../../../pipes/PlayerLeftPercentage/player-left-percentage.pipe';
+import { BasePlayer } from '../../../../models/BasePlayer';
+import { Game } from '../../../../models/BaseGame';
 
 @Component({
 	selector: 'app-horse-progress',

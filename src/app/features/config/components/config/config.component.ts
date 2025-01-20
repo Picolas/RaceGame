@@ -26,7 +26,6 @@ export class ConfigComponent {
 	private gameStore = inject(GameStore);
 	private paginationService = inject(PaginationService);
 	private fb = inject(FormBuilder);
-	private router = inject(Router);
 
 	players = this.gameStore.players;
 	teams = this.gameStore.teams;

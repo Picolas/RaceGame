@@ -1,0 +1,24 @@
+<div class="player-container row" [style.order]="order()">
+	<app-player-name
+		[player]="player()"
+		[isFirst]="isFirst()"
+		[isLast]="isLast()"
+		[isNotLast]="isNotLast()"
+		[movementClass]="movementClass()"
+	></app-player-name>
+
+	<div class="horse-container col-11">
+		<app-horse-progress
+			[player]="player()"
+			[allPlayers]="allPlayers()"
+			[game]="game()"
+		></app-horse-progress>
+
+		<app-grass
+			[isFirst]="isFirst()"
+			[isLast]="isLast()"
+		></app-grass>
+	</div>
+
+	<app-end-pilon/>
+</div>
