@@ -1,9 +1,7 @@
 <div class="game-container mx-auto" [class.container]="!layoutService.isFluid()">
 
-	<app-game-stats
-		[stats]="stats()"
-		[gameType]="game().gameType"
-	/>
+	@if (game()) {
+		<app-game-stats [stats]="stats()" />
 
 	@if (showLeaderboard()) {
 	  @if (layoutService.showTeamLeaderboard() && teams().length > 0) {
@@ -27,14 +25,15 @@
     [game]="game()"
   />
 
-  @if (pageNumbers().length > 1) {
-    <div class="pagination">
-      @for (page of pageNumbers(); track page) {
-        <a [routerLink]="['/game/page', page]"
-           [class.active]="currentPage() === page">
-          {{ page }}
-        </a>
-      }
-    </div>
-  }
+		@if (pageNumbers().length > 1) {
+			<div class="pagination">
+				@for (page of pageNumbers(); track page) {
+					<a [routerLink]="['/game/page', page]"
+						[class.active]="currentPage() === page">
+						{{ page }}
+					</a>
+				}
+			</div>
+		}
+	}
 </div>

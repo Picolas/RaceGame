@@ -6,8 +6,8 @@
 			</svg>
 		</div>
 		<div class="stat-title">Points totaux</div>
-		<div class="stat-value text-accent">{{ stats.totalPoints }} pts</div>
-		<div class="stat-desc">{{ stats.averagePoints }} pts/joueur en moyenne</div>
+		<div class="stat-value text-accent">{{ stats().totalPoints }} pts</div>
+		<div class="stat-desc">{{ stats().averagePoints }} pts/joueur en moyenne</div>
 	</div>
 
 	<div class="stat">
@@ -17,10 +17,10 @@
 			</svg>
 		</div>
 		<div class="stat-title">Joueurs totaux</div>
-		<div class="stat-value text-secondary">{{ stats.totalPlayers }}</div>
+		<div class="stat-value text-secondary">{{ stats().totalPlayers }}</div>
 	</div>
 
-	@if (gameType === GameType.TEAMS && stats.totalTeams) {
+	@if (stats().gameType === GameType.TEAMS && stats().totalTeams) {
 		<div class="stat">
 			<div class="stat-figure text-primary">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
@@ -28,7 +28,7 @@
 				</svg>
 			</div>
 			<div class="stat-title">Équipes totales</div>
-			<div class="stat-value text-primary">{{ stats.totalTeams }}</div>
+			<div class="stat-value text-primary">{{ stats().totalTeams }}</div>
 		</div>
 	}
 </div>

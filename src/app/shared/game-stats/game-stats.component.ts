@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, Input } from '@angular/core';
 import { GameType } from '../../models/GameType';
 
 interface GameStats {
@@ -6,6 +6,7 @@ interface GameStats {
   averagePoints: number;
   totalPlayers: number;
   totalTeams?: number;
+  gameType?: GameType;
 }
 
 @Component({
@@ -15,8 +16,7 @@ interface GameStats {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameStatsComponent {
-  @Input() stats!: GameStats;
-  @Input() gameType!: GameType;
+  stats = input.required<GameStats>()
 
   protected readonly GameType = GameType;
 }

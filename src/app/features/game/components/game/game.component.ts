@@ -61,27 +61,29 @@ export class GameComponent {
     return Array.from({ length: total }, (_, i) => i + 1);
   });
 
-  protected readonly stats = computed(() => {
-    const game = this.game();
-    if (!game) return { totalPoints: 0, averagePoints: 0, totalPlayers: 0 };
+	protected readonly stats = computed(() => {
+		const game = this.game();
+		if (!game) return { totalPoints: 0, averagePoints: 0, totalPlayers: 0, gameType: GameType.SOLO_PLAYERS };
 
-    if (game.gameType === GameType.SOLO_PLAYERS) {
-      const totalPoints = this.players().reduce((sum, p) => sum + p.points, 0);
-      const totalPlayers = this.players().length;
-      return {
-        totalPoints,
-        averagePoints: totalPlayers ? Math.round(totalPoints / totalPlayers) : 0,
-        totalPlayers
-      };
-    } else {
-      const totalPoints = this.teams().reduce((sum, t) => sum + t.points, 0);
-      const totalPlayers = this.teams().reduce((sum, t) => sum + t.players.length, 0);
-      return {
-        totalPoints,
-        averagePoints: totalPlayers ? Math.round(totalPoints / totalPlayers) : 0,
-        totalPlayers,
-        totalTeams: this.teams().length
-      };
-    }
-  });
+		if (game.gameType === GameType.SOLO_PLAYERS) {
+			const totalPoints = this.players().reduce((sum, p) => sum + p.points, 0);
+			const totalPlayers = this.players().length;
+			return {
+				totalPoints,
+				averagePoints: totalPlayers ? Math.round(totalPoints / totalPlayers) : 0,
+				totalPlayers,
+				gameType: game.gameType
+			};
+		} else {
+			const totalPoints = this.teams().reduce((sum, t) => sum + t.points, 0);
+			const totalPlayers = this.teams().reduce((sum, t) => sum + t.players.length, 0);
+			return {
+				totalPoints,
+				averagePoints: totalPlayers ? Math.round(totalPoints / totalPlayers) : 0,
+				totalPlayers,
+				totalTeams: this.teams().length,
+				gameType: game.gameType
+			};
+		}
+	});
 }
