@@ -10,18 +10,21 @@ import { map } from 'rxjs/operators';
 import { LayoutService } from '../../../../core/services/LayoutService/layout.service';
 import { RaceTeamComponent } from '../../../../shared/race-team/race-team.component';
 import { TeamLeaderboardComponent } from '../../../../shared/leaderboard/team-leaderboard/team-leaderboard.component';
+import { GameStatsComponent } from '../../../../shared/game-stats/game-stats.component';
+import { GameType } from '../../../../models/GameType';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-	imports: [
-		RouterLink,
-		RouterModule,
-		RaceComponent,
-		PlayerLeaderboardComponent,
-		RaceTeamComponent,
-		TeamLeaderboardComponent,
-	],
+  imports: [
+    RouterLink,
+    RouterModule,
+    RaceComponent,
+    PlayerLeaderboardComponent,
+    RaceTeamComponent,
+    TeamLeaderboardComponent,
+    GameStatsComponent,
+  ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -56,5 +59,29 @@ export class GameComponent {
   pageNumbers = computed(() => {
     const total = this.paginationService.getTotalPages(this.players());
     return Array.from({ length: total }, (_, i) => i + 1);
+  });
+
+  protected readonly stats = computed(() => {
+    const game = this.game();
+    if (!game) return { totalPoints: 0, averagePoints: 0, totalPlayers: 0 };
+
+    if (game.gameType === GameType.SOLO_PLAYERS) {
+      const totalPoints = this.players().reduce((sum, p) => sum + p.points, 0);
+      const totalPlayers = this.players().length;
+      return {
+        totalPoints,
+        averagePoints: totalPlayers ? Math.round(totalPoints / totalPlayers) : 0,
+        totalPlayers
+      };
+    } else {
+      const totalPoints = this.teams().reduce((sum, t) => sum + t.points, 0);
+      const totalPlayers = this.teams().reduce((sum, t) => sum + t.players.length, 0);
+      return {
+        totalPoints,
+        averagePoints: totalPlayers ? Math.round(totalPoints / totalPlayers) : 0,
+        totalPlayers,
+        totalTeams: this.teams().length
+      };
+    }
   });
 }
