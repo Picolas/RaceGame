@@ -5,4 +5,5 @@ export enum Entity {
 	EXALT_FORGE = 'eXalt FORGE',
 	EXALT_VALUE = 'eXalt VALUE',
 	EXALT_SHIELD = 'eXalt SHIELD',
+	HEKKO = 'HEKKO',
 }
